@@ -7,10 +7,14 @@ import {
   UserOutlined,
   VideoCameraOutlined,
   ContainerOutlined,
+  LockOutlined,
+  PoweroffOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Space, } from "antd";
+import { Button, Dropdown } from "antd";
 import type { MenuProps } from "antd";
 import Worktime from "./Category/Worktime/Worktime";
+
 import { Image } from "antd";
 import "./GateWayStag.css";
 
@@ -66,18 +70,68 @@ const items: MenuItem[] = [
   getItem("Quản lý tin tức", "sub7", <UserOutlined />, [
     getItem("Bài viết", "20"),
   ]),
-  getItem("Quản lý Banner/Popup", "sub7", <ContainerOutlined />),
-  getItem("Hỏi đáp", "sub8", <UserOutlined />, [
+  getItem("Quản lý Banner/Popup", "sub8", <ContainerOutlined />),
+  getItem("Hỏi đáp", "sub9", <UserOutlined />, [
     getItem("Quản lý câu hỏi", "21"),
     getItem("Quản lý câu trả lời", "22"),
   ]),
-  getItem("Thiết lập chung", "sub9", <ContainerOutlined />),
-  getItem("Báo cáo thống kê", "sub10", <ContainerOutlined />),
-  getItem("Quản lý thông báo", "sub11", <UserOutlined />, [
+  getItem("Thiết lập chung", "sub10", <ContainerOutlined />),
+  getItem("Báo cáo thống kê", "sub11", <ContainerOutlined />),
+  getItem("Quản lý thông báo", "sub12", <UserOutlined />, [
     getItem("App User", "23"),
     getItem("App Doctor", "24"),
   ]),
 ];
+//TODO: User NavBar
+const UserNavBar = () => {
+const items: MenuProps["items"] = [
+  {
+    key: "1",
+    icon: <UserOutlined />,
+    label: <a href="#">Tài khoản</a>,
+  },
+  {
+    key: "2",
+    icon: <LockOutlined />,
+    label: <a href="#">Đổi mật khẩu</a>,
+  },
+  {
+    key: "3",
+    icon: <PoweroffOutlined />,
+    label: <a href="#">Đăng xuất</a>,
+  },
+];
+  return (
+    <>
+      <Menu mode="horizontal">
+        <Menu.SubMenu key={"SubMenu"} title="Quản trị viên">
+          <Menu.Item key="one" icon={<UserOutlined />}>
+            Tài khoản
+          </Menu.Item>
+          <Menu.Item key="two" icon={<LockOutlined />}>
+            Đổi mật khẩu
+          </Menu.Item>
+          <Menu.Item key="three" icon={<PoweroffOutlined />}>
+            Đăng xuất
+          </Menu.Item>
+        </Menu.SubMenu>
+      </Menu>
+    </>
+  );
+}
+//TODO: Footer
+const Footer = () => {
+  return (
+    <footer className="footer"
+    >
+      <span
+        className="copyright"
+      >
+        MedOn Admin ©2021 Design By MEDON JSC
+      </span>
+    </footer>
+  );
+}
 const GateWayStag = () => {
   const [collapsed, setCollapsed] = useState(false);
 
@@ -100,29 +154,28 @@ const GateWayStag = () => {
           mode="inline"
           theme="dark"
           inlineCollapsed={collapsed}
-                  items={items}      
+          items={items}
         />
       </Sider>
       <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }}>
-          {React.createElement(
-            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-            {
-              className: "trigger",
-              onClick: () => setCollapsed(!collapsed),
-            }
-          )}
+        <Header className="site-layout-background" style={{ padding: 0, display: "flex", justifyContent: "space-between" }}>
+          <div>
+            {React.createElement(
+              collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+              {
+                className: "trigger",
+                onClick: () => setCollapsed(!collapsed),
+              }
+            )}
+          </div>
+          <div>
+            <UserNavBar/>
+          </div>
         </Header>
-        <Content
-          className="site-layout-background"
-          style={{
-            margin: "24px 16px",
-            padding: 24,
-            minHeight: 280,
-          }}
-        >
-          <Worktime/>
+        <Content className="ant-layout-content content">
+          <Worktime />
         </Content>
+        <Footer />
       </Layout>
     </Layout>
   );

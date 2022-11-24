@@ -1,0 +1,91 @@
+* {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.iylGhi {
+    padding: 12px;
+    background-color: rgb(255, 255, 255);
+}
+.ant-page-header-ghost {
+    background-color: inherit;
+}
+.ant-page-header-heading {
+    display: flex;
+    justify-content: space-between;
+}
+.ant-page-header-heading-left {
+    display: flex;
+    align-items: center;
+    margin: 4px 0;
+    overflow: hidden;
+}
+.ant-page-header-back {
+    margin-right: 16px;
+    font-size: 16px;
+    line-height: 1;
+}
+.ant-page-header-back-button {
+    border: 0px;
+    background: transparent;
+    padding: 0px;
+    line-height: inherit;
+    display: inline-block;
+    
+    text-decoration: none;
+    outline: none;
+    transition: color .3s;
+    color: #000;
+    cursor: pointer;
+}
+.ant-page-header-back-button:hover {
+color: #1890ff;
+}
+.ant-page-header-heading-title {
+    font-size: 16px!important;
+    margin-right: 12px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,.85);
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 32px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.ant-page-header {
+    box-sizing: border-box;
+    margin: 0;
+    color: rgba(0,0,0,.85);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    font-feature-settings: "tnum","tnum";
+    position: relative;
+    padding: 16px 24px;
+    background-color: #fff;
+}
+.ant-table-content{
+    overflow: auto hidden;
+    border-collapse: collapse;
+}
+.ant-table-thead>tr>th {
+    background: #2073d3!important;
+    color: #fff!important;
+    position: relative;
+    padding: 16px;
+    overflow-wrap: break-word;
+    border-radius: 0px;
+}
+.ant-table.ant-table-bordered>.ant-table-container>.ant-table-content>table>thead>tr>th {
+        border-right: 1px solid #f0f0f0;
+}
+.modalAdd {
+    height: 44px;
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px;
+    border: 1px solid rgb(240, 240, 240);
+}

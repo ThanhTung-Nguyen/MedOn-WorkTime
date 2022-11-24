@@ -19,3 +19,58 @@
 .site-layout .site-layout-background {
   background: #fff;
 }
+.ant-layout {
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    min-height: 0;
+    background: #f0f2f5;
+}
+.ant-layout-header {
+    height: 64px;
+    padding: 0 50px;
+    color: rgba(0,0,0,.85);
+    line-height: 64px;
+    background: #001529;
+}
+.content {
+    padding: 12px;
+    height: calc(100vh - 102px);
+    overflow-y: auto;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+.ant-layout-content {
+    flex: auto;
+    min-height: 0;
+}
+.footer {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    padding: 10px!important;
+    /* position: fixed; */
+    width: 100%;
+    /* bottom: 0px; */
+}
+.footer .copyright {
+    color: rgba(0,0,0,.45);
+    font-size: 16px;
+    text-align: center;
+}
+.ant-layout-footer {
+    padding: 24px 50px;
+    color: rgba(0,0,0,.85);
+    font-size: 14px;
+    background: #f0f2f5;
+}
+.ant-layout-footer, .ant-layout-header {
+    flex: 0 0 auto;
+}
