@@ -11,7 +11,8 @@
 }
 
 .logo {
-  height: 32px;
+  /* min-width: 254px; */
+  height: 64px;
   margin: 16px;
   background: rgba(255, 255, 255, 0.3);
 }

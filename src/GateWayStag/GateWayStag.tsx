@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 import {
+  NotificationOutlined,
+  BarChartOutlined,
+  SettingOutlined,
+  QuestionCircleOutlined,
+  FileImageOutlined,
+  ProfileOutlined,
+  ExceptionOutlined,
+  ContactsOutlined,
+  UnorderedListOutlined,
+  UsergroupAddOutlined,
+  WhatsAppOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  MailOutlined,
-  UploadOutlined,
   UserOutlined,
-  VideoCameraOutlined,
   ContainerOutlined,
   LockOutlined,
   PoweroffOutlined,
@@ -36,14 +44,14 @@ function getItem(
   } as MenuItem;
 }
 const items: MenuItem[] = [
-  getItem("Quản lý tài khoản", "sub1", <MailOutlined />, [
+  getItem("Quản lý tài khoản", "sub1", <ContactsOutlined />, [
     getItem("Nhóm quyền", "1"),
     getItem("Chức năng", "2"),
     getItem("Tham số", "3"),
     getItem("Tài khoản", "4"),
   ]),
 
-  getItem("Quản lý danh mục", "sub2", <UploadOutlined />, [
+  getItem("Quản lý danh mục", "sub2", <UnorderedListOutlined />, [
     getItem("Tỉnh/TP", "5"),
     getItem("Quận/Huyện", "6"),
     getItem("Xã/Phường", "7"),
@@ -55,29 +63,29 @@ const items: MenuItem[] = [
     getItem("Chuyên mục", "13"),
     getItem("Banner/Popup", "14"),
   ]),
-  getItem("Quản lý gói khám", "sub3", <UserOutlined />, [
+  getItem("Quản lý gói khám", "sub3", <ContainerOutlined />, [
     getItem("Gói khám", "15"),
     getItem("Loại gói khám", "16"),
     getItem("Theo đối tác", "17"),
   ]),
-  getItem("Quản lý bệnh nhân", "sub4", <ContainerOutlined />),
-  getItem("Video call", "sub5", <UserOutlined />, [
+  getItem("Quản lý bệnh nhân", "sub4", <UsergroupAddOutlined />),
+  getItem("Video call", "sub5", <WhatsAppOutlined />, [
     getItem("Quản lý lịch trực", "18"),
     getItem("Theo dõi cuộc gọi video call", "19"),
   ]),
-  getItem("Quản lý bác sĩ", "sub5", <ContainerOutlined />),
-  getItem("Chỉ định xét nghiệm", "sub6", <ContainerOutlined />),
-  getItem("Quản lý tin tức", "sub7", <UserOutlined />, [
+  getItem("Quản lý bác sĩ", "sub5", <UsergroupAddOutlined />),
+  getItem("Chỉ định xét nghiệm", "sub6", <ExceptionOutlined />),
+  getItem("Quản lý tin tức", "sub7", <ProfileOutlined />, [
     getItem("Bài viết", "20"),
   ]),
-  getItem("Quản lý Banner/Popup", "sub8", <ContainerOutlined />),
-  getItem("Hỏi đáp", "sub9", <UserOutlined />, [
+  getItem("Quản lý Banner/Popup", "sub8", <FileImageOutlined />),
+  getItem("Hỏi đáp", "sub9", <QuestionCircleOutlined />, [
     getItem("Quản lý câu hỏi", "21"),
     getItem("Quản lý câu trả lời", "22"),
   ]),
-  getItem("Thiết lập chung", "sub10", <ContainerOutlined />),
-  getItem("Báo cáo thống kê", "sub11", <ContainerOutlined />),
-  getItem("Quản lý thông báo", "sub12", <UserOutlined />, [
+  getItem("Thiết lập chung", "sub10", <SettingOutlined />),
+  getItem("Báo cáo thống kê", "sub11", <BarChartOutlined />),
+  getItem("Quản lý thông báo", "sub12", <NotificationOutlined />, [
     getItem("App User", "23"),
     getItem("App Doctor", "24"),
   ]),
@@ -103,7 +111,7 @@ const items: MenuProps["items"] = [
 ];
   return (
     <>
-      <Menu mode="horizontal">
+      <Menu mode="horizontal" style={{fontSize:"20px"}}>
         <Menu.SubMenu key={"SubMenu"} title="Quản trị viên">
           <Menu.Item key="one" icon={<UserOutlined />}>
             Tài khoản
@@ -111,7 +119,7 @@ const items: MenuProps["items"] = [
           <Menu.Item key="two" icon={<LockOutlined />}>
             Đổi mật khẩu
           </Menu.Item>
-          <Menu.Item key="three" icon={<PoweroffOutlined />}>
+          <Menu.Item key="three" icon={<PoweroffOutlined />} danger>
             Đăng xuất
           </Menu.Item>
         </Menu.SubMenu>
@@ -138,16 +146,16 @@ const GateWayStag = () => {
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo">
-          {/* <a href="#">
+        <header className="logo">
+          
             <Image
               src="https://gatewaystag.medon.vn/cms/static/media/logo-trang-01.46dbc2d7.png"
               width={150}
               style={{ padding: 0 }}
               preview={false}
             />
-          </a> */}
-        </div>
+       
+        </header>
         <Menu
           defaultSelectedKeys={["1"]}
           defaultOpenKeys={[""]}
