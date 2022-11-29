@@ -13,16 +13,13 @@ import {
   WhatsAppOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UserOutlined,
   ContainerOutlined,
-  LockOutlined,
-  PoweroffOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, Space, } from "antd";
-import { Button, Dropdown } from "antd";
+import { Layout, Menu } from "antd";
 import type { MenuProps } from "antd";
-import Worktime from "./Category/Worktime/Worktime";
-
+import UserNavBar from "./UserNavBar/UserNavBar";
+import Worktime from "./Worktime/Worktime";
+import Footer from "./Footer/Footer";
 import { Image } from "antd";
 import "./GateWayStag.css";
 
@@ -91,55 +88,7 @@ const items: MenuItem[] = [
   ]),
 ];
 //TODO: User NavBar
-const UserNavBar = () => {
-const items: MenuProps["items"] = [
-  {
-    key: "1",
-    icon: <UserOutlined />,
-    label: <a href="#">Tài khoản</a>,
-  },
-  {
-    key: "2",
-    icon: <LockOutlined />,
-    label: <a href="#">Đổi mật khẩu</a>,
-  },
-  {
-    key: "3",
-    icon: <PoweroffOutlined />,
-    label: <a href="#">Đăng xuất</a>,
-  },
-];
-  return (
-    <>
-      <Menu mode="horizontal" style={{fontSize:"20px"}}>
-        <Menu.SubMenu key={"SubMenu"} title="Quản trị viên">
-          <Menu.Item key="one" icon={<UserOutlined />}>
-            Tài khoản
-          </Menu.Item>
-          <Menu.Item key="two" icon={<LockOutlined />}>
-            Đổi mật khẩu
-          </Menu.Item>
-          <Menu.Item key="three" icon={<PoweroffOutlined />} danger>
-            Đăng xuất
-          </Menu.Item>
-        </Menu.SubMenu>
-      </Menu>
-    </>
-  );
-}
-//TODO: Footer
-const Footer = () => {
-  return (
-    <footer className="footer"
-    >
-      <span
-        className="copyright"
-      >
-        MedOn Admin ©2021 Design By MEDON JSC
-      </span>
-    </footer>
-  );
-}
+
 const GateWayStag = () => {
   const [collapsed, setCollapsed] = useState(false);
 
@@ -147,14 +96,12 @@ const GateWayStag = () => {
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <header className="logo">
-          
-            <Image
+          {/* <Image
               src="https://gatewaystag.medon.vn/cms/static/media/logo-trang-01.46dbc2d7.png"
               width={150}
               style={{ padding: 0 }}
               preview={false}
-            />
-       
+            /> */}
         </header>
         <Menu
           defaultSelectedKeys={["1"]}
@@ -166,7 +113,14 @@ const GateWayStag = () => {
         />
       </Sider>
       <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0, display: "flex", justifyContent: "space-between" }}>
+        <Header
+          className="site-layout-background"
+          style={{
+            padding: 0,
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <div>
             {React.createElement(
               collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
@@ -177,7 +131,7 @@ const GateWayStag = () => {
             )}
           </div>
           <div>
-            <UserNavBar/>
+            <UserNavBar />
           </div>
         </Header>
         <Content className="ant-layout-content content">
