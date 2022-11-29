@@ -98,17 +98,15 @@ const ModalAdd: React.FC<ModalAddProps> = (props) => {
           <Form.Item label="Khung giờ" required>
             <Form.Item
               name="start"
+              initialValue={dayjs("12:08", format)}
               rules={[{ required: true, message: "Nhập giờ bắt đầu!" }]}
               style={{ display: "inline-block", width: "calc(50% - 8px)" }}
             >
-              {/* <Input placeholder="Bắt đầu" /> */}
-              <TimePicker
-                defaultValue={dayjs("12:08", format)}
-                format={format}
-              />
+              <TimePicker format={format} />
             </Form.Item>
             <Form.Item
               name="end"
+              initialValue={dayjs("12:08", format)}
               rules={[{ required: true, message: "Nhập giờ kết thúc!" }]}
               style={{
                 display: "inline-block",
@@ -116,7 +114,7 @@ const ModalAdd: React.FC<ModalAddProps> = (props) => {
                 margin: "0 8px",
               }}
             >
-              <Input placeholder="Kết thúc" />
+              <TimePicker format={format} />
             </Form.Item>
           </Form.Item>
         </Form>

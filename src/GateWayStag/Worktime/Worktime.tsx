@@ -13,6 +13,7 @@ import { Button, Space, Modal, Form, Input, Popconfirm, Table } from "antd";
 import { Checkbox } from "antd";
 import { TimePicker } from "antd";
 import { ColumnsType } from "antd/es/table";
+import { Divider, Tag } from "antd";
 import ArrowTitle from "../ArrowTitle/ArrowTitle";
 import SelectBtnReset from "../SelectBtnSelect/SelectBtnSelect";
 import type { Dayjs } from "dayjs";
@@ -37,8 +38,8 @@ interface FixedDataType {
   ten: string;
   loai: string;
   ca: string;
-  // start: Dayjs;
-  // end: Dayjs;
+  start: string;
+  end: string;
   create: string;
   status: string;
 }
@@ -49,7 +50,7 @@ const data: DaTaType[] = [
     ten: "06h00-07h00",
     loai: "vidcall",
     ca: "morning",
-    start: "06:00",
+    start: "2022-11-29T11:11",
     end: "07:00",
     create: "15/11/2022",
     status: "Đã duyệt",
@@ -151,79 +152,26 @@ const Worktime = () => {
     {
       title: "Loại khung giờ",
       dataIndex: "loai",
-      render: (a: any) => {
-        if (a === "vidcall")
-          return (
-            <div
-              style={{
-                width: 70,
-                border: "1px solid #d9d9d9",
-                background: "#fafafa",
-              }}
-            >
-              Video Call
-            </div>
-          );
-        return (
-          <div
-            style={{
-              width: 80,
-              border: "1px solid #d9d9d9",
-              background: "#fafafa",
-            }}
-          >
-            Lịch thường
-          </div>
-        );
+      render: (a) => {
+        if (a === "vidcall") return <Tag>Video Call</Tag>;
+        return <Tag>Lịch thường</Tag>;
       },
     },
     {
       title: "Ca làm việc",
       dataIndex: "ca",
       render: (a: any) => {
-        if (a === "morning")
-          return (
-            <div
-              style={{
-                width: 91,
-                border: "1px solid #d9d9d9",
-                background: "#fafafa",
-              }}
-            >
-              Ca sáng bác sĩ
-            </div>
-          );
-        if (a === "afternoon")
-          return (
-            <div
-              style={{
-                width: 91,
-                border: "1px solid #d9d9d9",
-                background: "#fafafa",
-              }}
-            >
-              Ca chiều BS
-            </div>
-          );
-        return (
-          <div
-            style={{
-              width: 91,
-              border: "1px solid #d9d9d9",
-              background: "#fafafa",
-            }}
-          >
-            Ca tối bác sĩ
-          </div>
-        );
+        if (a === "morning") return <Tag>Ca sáng bác sĩ</Tag>;
+        if (a === "afternoon") return <Tag>Ca chiều bác sĩ</Tag>;
+        return <Tag>Ca tối bác sĩ</Tag>;
       },
     },
     {
       title: "Giờ bắt đầu",
       dataIndex: "start",
       render: (value) => {
-        return (value.toString())
-      }
+        return dayjs(value).format(format);
+      },
     },
     {
       title: "Giờ kết thúc",
@@ -240,19 +188,7 @@ const Worktime = () => {
       title: "Trạng thái",
       dataIndex: "status",
       render: () => {
-        return (
-          <div
-            style={{
-              width: "64px",
-              color: "#096dd9",
-              background: "#e6f7ff",
-              borderColor: "#91d5ff",
-              border: "1px solid #91d5ff",
-            }}
-          >
-            Đã duyệt
-          </div>
-        );
+        return <Tag color="blue">Đã duyệt</Tag>;
       },
     },
     {
@@ -263,117 +199,43 @@ const Worktime = () => {
       //TODO: Action Button
       render: (_: any, record: any, index: any) => (
         <Space size="middle">
-          <Button type="primary" ghost icon={<EditOutlined />}></Button>
-          <Modal title="Cập nhật">
-            <Form
-              labelCol={{ span: 8 }}
-              wrapperCol={{ span: 16 }}
-              autoComplete="off"
-              labelAlign="left"
-            >
-              <Form.Item
-                label="Loại khung giờ:"
-                name="loai"
-                rules={[
-                  { required: true, message: "Nhập vào loại khung giờ!" },
-                ]}
-              >
-                <Select
-                  showSearch
-                  allowClear
-                  size="large"
-                  defaultValue="-- Chọn loại khung giờ --"
-                  style={{ width: 315, textAlign: "left" }}
-                  options={[
-                    {
-                      value: "vidcall",
-                      label: "Video Call",
-                    },
-                    {
-                      value: "normal",
-                      label: "Lịch thường",
-                    },
-                  ]}
-                ></Select>
-              </Form.Item>
-              <Form.Item
-                label="Ca làm việc:"
-                name="ca"
-                rules={[{ required: true, message: "Nhập vào ca làm việc!" }]}
-              >
-                <Select
-                  showSearch
-                  allowClear
-                  size="large"
-                  defaultValue="-- Chọn ca làm việc --"
-                  style={{ width: 315, textAlign: "left" }}
-                  options={[
-                    {
-                      value: "morning",
-                      label: "Ca sáng Bác sĩ",
-                    },
-                    {
-                      value: "afternoon",
-                      label: "Ca chiều Bác sĩ",
-                    },
-                    {
-                      value: "evening",
-                      label: "Ca tối Bác sĩ",
-                    },
-                  ]}
-                />
-              </Form.Item>
-              <Form.Item
-                label="Tên khung giờ:"
-                name="ten"
-                rules={[{ required: true, message: "Nhập vào tên khung giờ!" }]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item label="Khung giờ:" required>
-                <TimePicker
-                  name="start"
-                  defaultValue={dayjs("00:00", format)}
-                  format={format}
-                />
-                đến
-                <TimePicker
-                  name="end"
-                  defaultValue={dayjs("00:00", format)}
-                  format={format}
-                />
-              </Form.Item>
-            </Form>
-          </Modal>
+          <Button
+            type="primary"
+            ghost
+            onClick={() => {
+              showModalUpdate();
+              setEditrow(index);
+            }}
+            icon={<EditOutlined />}
+          ></Button>
           <Button
             danger
-            onClick={showModalDel}
+            onClick={() => {
+              showModalDel();
+              setSelectedrow(index);
+            }}
             icon={<DeleteOutlined />}
           ></Button>
-          <Modal
-            title="Cảnh báo"
-            open={modalDelOpen}
-            onOk={(e) => {
-              handleDel(index);
-              closeModalDel();
-            }}
-            onCancel={closeModalDel}
-          >
-            <p>Bạn có chắc muốn thực hiện hành động này?</p>
-          </Modal>
         </Space>
       ),
     },
   ];
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalDelOpen, setModalDelOpen] = useState(false);
   const [arrlist, setArrlist] = useState<DaTaType[]>(data);
+  const [selectedrow, setSelectedrow] = useState(0);
+  const [modalEditOpen, setModalEditOpen] = useState(false);
+  const [editrow, setEditrow] = useState(0);
 
   const showModal = () => {
     setIsModalOpen(true);
   };
   const showModalDel = () => {
     setModalDelOpen(true);
+  };
+  const showModalUpdate = () => {
+    setModalEditOpen(true);
   };
   const closeModalDel = () => {
     setModalDelOpen(false);
@@ -386,21 +248,11 @@ const Worktime = () => {
     setArrlist([...arrlist]);
     closeModal();
   };
-  const handleDel = (index: number) => {
-    arrlist.splice(index, 1);
+  const handleDel = () => {
+    arrlist.splice(selectedrow, 1);
     setArrlist([...arrlist]);
-    // closeModalDel();
   };
-  const ModalDel = () => {
-    Modal.confirm({
-      title: "Cảnh báo",
-      icon: <ExclamationCircleOutlined />,
-      content: "Bạn có chắc muốn thực hiện hành động này",
-      okText: "Đồng ý",
-      cancelText: "Huỷ bỏ",
-    });
-  };
-
+  
   return (
     <div className="sc-eCApnc iylGhi">
       <div className="ant-page-header ant-page-header-ghost">
@@ -427,6 +279,110 @@ const Worktime = () => {
       </div>
       <div>
         <Table bordered dataSource={arrlist} columns={columns} />
+        <Modal
+          title="Cập nhật"
+          open={modalEditOpen}
+          onOk={(e) => {}}
+          onCancel={closeModalDel}
+        >
+          <Form
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
+            autoComplete="off"
+            labelAlign="left"
+          >
+            <Form.Item
+              label="Loại khung giờ:"
+              name="loai"
+              rules={[{ required: true, message: "Nhập vào loại khung giờ!" }]}
+            >
+              <Select
+                showSearch
+                allowClear
+                size="large"
+                placeholder="-- Chọn loại khung giờ --"
+                style={{ width: 315, textAlign: "left" }}
+                options={[
+                  {
+                    value: "vidcall",
+                    label: "Video Call",
+                  },
+                  {
+                    value: "normal",
+                    label: "Lịch thường",
+                  },
+                ]}
+              ></Select>
+            </Form.Item>
+            <Form.Item
+              label="Ca làm việc:"
+              name="ca"
+              rules={[{ required: true, message: "Nhập vào ca làm việc!" }]}
+            >
+              <Select
+                showSearch
+                allowClear
+                size="large"
+                placeholder="-- Chọn ca làm việc --"
+                style={{ width: 315, textAlign: "left" }}
+                options={[
+                  {
+                    value: "morning",
+                    label: "Ca sáng Bác sĩ",
+                  },
+                  {
+                    value: "afternoon",
+                    label: "Ca chiều Bác sĩ",
+                  },
+                  {
+                    value: "evening",
+                    label: "Ca tối Bác sĩ",
+                  },
+                ]}
+              />
+            </Form.Item>
+            <Form.Item
+              name="ten"
+              label="Tên khung giờ:"
+              rules={[{ required: true, message: "Nhập vào tên khung giờ!" }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item label="Khung giờ" required>
+              <Form.Item
+                name="start"
+                initialValue={dayjs("12:08", format)}
+                rules={[{ required: true, message: "Nhập giờ bắt đầu!" }]}
+                style={{ display: "inline-block", width: "calc(50% - 8px)" }}
+              >
+                <TimePicker format={format} />
+              </Form.Item>
+              <Form.Item
+                name="end"
+                initialValue={dayjs("12:08", format)}
+                rules={[{ required: true, message: "Nhập giờ kết thúc!" }]}
+                style={{
+                  display: "inline-block",
+                  width: "calc(50% - 8px)",
+                  margin: "0 8px",
+                }}
+              >
+                <TimePicker format={format} />
+              </Form.Item>
+            </Form.Item>
+          </Form>
+        </Modal>
+        <Modal
+          title="Cảnh báo"
+          open={modalDelOpen}
+          onOk={(e) => {
+            handleDel();
+            closeModalDel();
+          }}
+          onCancel={closeModalDel}
+        >
+          <p>Bạn có chắc muốn thực hiện hành động này?</p>
+        </Modal>
       </div>
     </div>
   );

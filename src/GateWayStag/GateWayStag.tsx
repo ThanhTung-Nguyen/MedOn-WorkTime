@@ -70,19 +70,19 @@ const items: MenuItem[] = [
     getItem("Quản lý lịch trực", "18"),
     getItem("Theo dõi cuộc gọi video call", "19"),
   ]),
-  getItem("Quản lý bác sĩ", "sub5", <UsergroupAddOutlined />),
-  getItem("Chỉ định xét nghiệm", "sub6", <ExceptionOutlined />),
-  getItem("Quản lý tin tức", "sub7", <ProfileOutlined />, [
+  getItem("Quản lý bác sĩ", "sub6", <UsergroupAddOutlined />),
+  getItem("Chỉ định xét nghiệm", "sub7", <ExceptionOutlined />),
+  getItem("Quản lý tin tức", "sub8", <ProfileOutlined />, [
     getItem("Bài viết", "20"),
   ]),
-  getItem("Quản lý Banner/Popup", "sub8", <FileImageOutlined />),
-  getItem("Hỏi đáp", "sub9", <QuestionCircleOutlined />, [
+  getItem("Quản lý Banner/Popup", "sub9", <FileImageOutlined />),
+  getItem("Hỏi đáp", "sub10", <QuestionCircleOutlined />, [
     getItem("Quản lý câu hỏi", "21"),
     getItem("Quản lý câu trả lời", "22"),
   ]),
-  getItem("Thiết lập chung", "sub10", <SettingOutlined />),
-  getItem("Báo cáo thống kê", "sub11", <BarChartOutlined />),
-  getItem("Quản lý thông báo", "sub12", <NotificationOutlined />, [
+  getItem("Thiết lập chung", "sub11", <SettingOutlined />),
+  getItem("Báo cáo thống kê", "sub12", <BarChartOutlined />),
+  getItem("Quản lý thông báo", "sub13", <NotificationOutlined />, [
     getItem("App User", "23"),
     getItem("App Doctor", "24"),
   ]),
