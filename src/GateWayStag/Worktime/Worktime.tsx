@@ -327,7 +327,10 @@ const Worktime = () => {
     setArrlist([...arrlist]);
   };
 
-  const handleEdit = () => {};
+  const handleEdit = (values:any) => {
+    console.log(values);
+    
+  };
 
   const onFinish = (values: any) => {
     console.log("Values received", values);
@@ -380,7 +383,7 @@ const Worktime = () => {
           onRow={(record, index) => {
             return {
               onDoubleClick: () => {
-                handleEdit();
+                // handleEdit();
                 setModalEditOpen(true);
               },
             };

@@ -12,29 +12,25 @@ interface ModalEditFormProps {
     onCancel: () => void;
 };
 
-const ModalEdit: React.FC<ModalEditFormProps> = ({
-  open,
-  onEdit,
-  onCancel,
-}) => {
+const ModalEdit: React.FC<ModalEditFormProps> = (props) => {
     const [form] = Form.useForm();
   return (
     <>
       <Modal
         title="Cập nhật"
-        open={open}
+        open={props.open}
         onOk={() => {
           form
             .validateFields()
             .then((values) => {
               form.resetFields();
-              onEdit(values);
+              props.onEdit(values);
             })
             .catch((info) => {
               console.log("Validate Failed:", info);
             });
         }}
-        onCancel={onCancel}
+        onCancel={props.onCancel}
       >
         <Form
           form={form}
