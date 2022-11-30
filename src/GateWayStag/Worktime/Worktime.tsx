@@ -14,11 +14,13 @@ import { Checkbox } from "antd";
 import { TimePicker } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { Divider, Tag } from "antd";
+import { Tooltip } from "antd";
 import ArrowTitle from "../ArrowTitle/ArrowTitle";
 import SelectBtnReset from "../SelectBtnSelect/SelectBtnSelect";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import ModalAdd from "../ModalAdd/ModalAdd";
+import ModalEdit from "../ModalEdit/ModalEdit";
 import "./Worktime.css";
 
 const format = "HH:mm";
@@ -43,6 +45,9 @@ interface FixedDataType {
   create: string;
   status: string;
 }
+// interface CollectionCreateFormProps {
+//   onCreate: (values: DaTaType) => void;
+// }
 //TODO: Data
 const data: DaTaType[] = [
   {
@@ -50,8 +55,8 @@ const data: DaTaType[] = [
     ten: "06h00-07h00",
     loai: "vidcall",
     ca: "morning",
-    start: "2022-11-29T11:11",
-    end: "07:00",
+    start: "2022-11-30T06:00",
+    end: "2022-11-30T07:00",
     create: "15/11/2022",
     status: "Đã duyệt",
   },
@@ -60,8 +65,8 @@ const data: DaTaType[] = [
     ten: "07h00-08h00",
     loai: "Video Call",
     ca: "morning",
-    start: "07:00",
-    end: "08:00",
+    start: "2022-11-30T07:00",
+    end: "2022-11-30T08:00",
     create: "15/11/2022",
     status: "Đã duyệt",
   },
@@ -70,8 +75,8 @@ const data: DaTaType[] = [
     ten: "08h00-09h00",
     loai: "vidcall",
     ca: "morning",
-    start: "08:00",
-    end: "09:00",
+    start: "2022-11-30T08:00",
+    end: "2022-11-30T09:00",
     create: "15/11/2022",
     status: "Đã duyệt",
   },
@@ -80,8 +85,8 @@ const data: DaTaType[] = [
     ten: "09h00-10h00",
     loai: "Video Call",
     ca: "morning",
-    start: "09:00",
-    end: "10:00",
+    start: "2022-11-30T09:00",
+    end: "2022-11-30T10:00",
     create: "15/11/2022",
     status: "Đã duyệt",
   },
@@ -90,8 +95,8 @@ const data: DaTaType[] = [
     ten: "10h00-11h00",
     loai: "vidcall",
     ca: "morning",
-    start: "10:00",
-    end: "11:00",
+    start: "2022-11-30T10:00",
+    end: "2022-11-30T11:00",
     create: "15/11/2022",
     status: "Đã duyệt",
   },
@@ -100,8 +105,8 @@ const data: DaTaType[] = [
     ten: "11h00-12h00",
     loai: "Video Call",
     ca: "morning",
-    start: "11:00",
-    end: "12:00",
+    start: "2022-11-30T11:00",
+    end: "2022-11-30T12:00",
     create: "15/11/2022",
     status: "Đã duyệt",
   },
@@ -110,8 +115,8 @@ const data: DaTaType[] = [
     ten: "12h00-13h00",
     loai: "vidcall",
     ca: "afternoon",
-    start: "12:00",
-    end: "13:00",
+    start: "2022-11-30T12:00",
+    end: "2022-11-30T13:00",
     create: "15/11/2022",
     status: "Đã duyệt",
   },
@@ -120,8 +125,8 @@ const data: DaTaType[] = [
     ten: "13h00-14h00",
     loai: "Video Call",
     ca: "afternoon",
-    start: "13:00",
-    end: "14:00",
+    start: "2022-11-30T13:00",
+    end: "2022-11-30T14:00",
     create: "15/11/2022",
     status: "Đã duyệt",
   },
@@ -130,65 +135,126 @@ const data: DaTaType[] = [
 //TODO: View WorkTime Page
 const Worktime = () => {
   const columns: ColumnsType<FixedDataType> = [
-    {
-      title: "",
-      dataIndex: "",
-      width: "3%",
-      render: () => (
-        <Checkbox
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        ></Checkbox>
-      ),
-    },
+    // {
+    //   title: "",
+    //   dataIndex: "",
+    //   width: "3%",
+    //   render: () => (
+    //     <Checkbox
+    //       style={{
+    //         display: "flex",
+    //         justifyContent: "center",
+    //         alignItems: "center",
+    //       }}
+    //     ></Checkbox>
+    //   ),
+    // },
     {
       title: "Tên khung giờ",
       dataIndex: "ten",
       width: "12%",
+      render: (value) => {
+        return (
+          <Tooltip title="Click đúp chuột để xem chi tiết">{value}</Tooltip>
+        );
+      },
     },
     {
       title: "Loại khung giờ",
       dataIndex: "loai",
       render: (a) => {
-        if (a === "vidcall") return <Tag>Video Call</Tag>;
-        return <Tag>Lịch thường</Tag>;
+        if (a === "vidcall")
+          return (
+            <Tooltip title="Click đúp chuột để xem chi tiết">
+              <Tag>Video Call</Tag>
+            </Tooltip>
+          );
+        return (
+          <Tooltip title="Click đúp chuột để xem chi tiết">
+            <Tag>Lịch thường</Tag>
+          </Tooltip>
+        );
       },
     },
     {
       title: "Ca làm việc",
       dataIndex: "ca",
       render: (a: any) => {
-        if (a === "morning") return <Tag>Ca sáng bác sĩ</Tag>;
-        if (a === "afternoon") return <Tag>Ca chiều bác sĩ</Tag>;
-        return <Tag>Ca tối bác sĩ</Tag>;
+        if (a === "morning")
+          return (
+            <Tooltip title="Click đúp chuột để xem chi tiết">
+              <Tag>Ca sáng bác sĩ</Tag>
+            </Tooltip>
+          );
+        if (a === "afternoon")
+          return (
+            <Tooltip title="Click đúp chuột để xem chi tiết">
+              <Tag>Ca chiều bác sĩ</Tag>
+            </Tooltip>
+          );
+        if (a === "evening")
+          return (
+            <Tooltip title="Click đúp chuột để xem chi tiết">
+              <Tag>Ca tối bác sĩ</Tag>
+            </Tooltip>
+          );
+        return (
+          <Tooltip title="Click đúp chuột để xem chi tiết">
+            <Tag></Tag>
+          </Tooltip>
+        );
       },
     },
     {
       title: "Giờ bắt đầu",
       dataIndex: "start",
       render: (value) => {
-        return dayjs(value).format(format);
+        return (
+          <Tooltip title="Click đúp chuột để xem chi tiết">
+            {dayjs(value).format(format)}
+          </Tooltip>
+        );
       },
     },
     {
       title: "Giờ kết thúc",
       dataIndex: "end",
+      render: (value) => {
+        return (
+          <Tooltip title="Click đúp chuột để xem chi tiết">
+            {dayjs(value).format(format)}
+          </Tooltip>
+        );
+      },
     },
     {
       title: "Ngày tạo",
       dataIndex: "create",
       render: () => {
-        return "29/11/2022";
+        return (
+          <Tooltip title="Click đúp chuột để xem chi tiết">30/11/2022</Tooltip>
+        );
       },
     },
     {
       title: "Trạng thái",
       dataIndex: "status",
+      filters: [
+        {
+          text: "Đã duyệt",
+          value: "duyet",
+        },
+        {
+          text: "Không duyệt",
+          value: "koduyet",
+        },
+      ],
       render: () => {
-        return <Tag color="blue">Đã duyệt</Tag>;
+        return (
+          <Tooltip title="Click đúp chuột để xem chi tiết">
+            <Tag color="blue">Đã duyệt</Tag>
+          </Tooltip>
+        );
       },
     },
     {
@@ -222,37 +288,65 @@ const Worktime = () => {
   ];
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalDelOpen, setModalDelOpen] = useState(false);
-  const [arrlist, setArrlist] = useState<DaTaType[]>(data);
-  const [selectedrow, setSelectedrow] = useState(0);
-  const [modalEditOpen, setModalEditOpen] = useState(false);
-  const [editrow, setEditrow] = useState(0);
+  const [modalDelOpen, setModalDelOpen] = useState(false); //State Modal Delete
+  const [arrlist, setArrlist] = useState<DaTaType[]>(data); //State Data Table
+  const [selectedrow, setSelectedrow] = useState(0); //State chọn row để xoá
+  const [modalEditOpen, setModalEditOpen] = useState(false); //State Modal Edit
+  const [editrow, setEditrow] = useState(); //State chọn row để Edit
 
+  //TODO: Đóng mở MoDal Add
   const showModal = () => {
     setIsModalOpen(true);
-  };
-  const showModalDel = () => {
-    setModalDelOpen(true);
-  };
-  const showModalUpdate = () => {
-    setModalEditOpen(true);
-  };
-  const closeModalDel = () => {
-    setModalDelOpen(false);
   };
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  //TODO: Đóng mở MoDal Delete
+  const showModalDel = () => {
+    setModalDelOpen(true);
+  };
+  const closeModalDel = () => {
+    setModalDelOpen(false);
+  };
+  //TODO: Đóng mở MoDal Update
+  const showModalUpdate = () => {
+    setModalEditOpen(true);
+  };
+  const closeModalUpdate = () => {
+    setModalEditOpen(false);
+  };
+  //TODO: Hàm Add
   const onSubmit = (a: DaTaType) => {
     arrlist.push(a);
     setArrlist([...arrlist]);
     closeModal();
   };
+  //TODO: Hàm Delete
   const handleDel = () => {
     arrlist.splice(selectedrow, 1);
     setArrlist([...arrlist]);
   };
-  
+
+  const handleEdit = () => {};
+
+  const onFinish = (values: any) => {
+    console.log("Values received", values);
+  };
+  const [form] = Form.useForm();
+  const [select, setSelect] = useState({
+    selectedRowKeys: [],
+    loading: false,
+  });
+  const { selectedRowKeys, loading } = select;
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: (selectedRowKeys: any) => {
+      setSelect({
+        ...select,
+        selectedRowKeys: selectedRowKeys,
+      });
+    },
+  };
   return (
     <div className="sc-eCApnc iylGhi">
       <div className="ant-page-header ant-page-header-ghost">
@@ -278,100 +372,25 @@ const Worktime = () => {
         />
       </div>
       <div>
-        <Table bordered dataSource={arrlist} columns={columns} />
-        <Modal
-          title="Cập nhật"
+        <Table
+          rowSelection={rowSelection}
+          bordered
+          dataSource={arrlist}
+          columns={columns}
+          onRow={(record, index) => {
+            return {
+              onDoubleClick: () => {
+                handleEdit();
+                setModalEditOpen(true);
+              },
+            };
+          }}
+        />
+        <ModalEdit
           open={modalEditOpen}
-          onOk={(e) => {}}
-          onCancel={closeModalDel}
-        >
-          <Form
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 16 }}
-            autoComplete="off"
-            labelAlign="left"
-          >
-            <Form.Item
-              label="Loại khung giờ:"
-              name="loai"
-              rules={[{ required: true, message: "Nhập vào loại khung giờ!" }]}
-            >
-              <Select
-                showSearch
-                allowClear
-                size="large"
-                placeholder="-- Chọn loại khung giờ --"
-                style={{ width: 315, textAlign: "left" }}
-                options={[
-                  {
-                    value: "vidcall",
-                    label: "Video Call",
-                  },
-                  {
-                    value: "normal",
-                    label: "Lịch thường",
-                  },
-                ]}
-              ></Select>
-            </Form.Item>
-            <Form.Item
-              label="Ca làm việc:"
-              name="ca"
-              rules={[{ required: true, message: "Nhập vào ca làm việc!" }]}
-            >
-              <Select
-                showSearch
-                allowClear
-                size="large"
-                placeholder="-- Chọn ca làm việc --"
-                style={{ width: 315, textAlign: "left" }}
-                options={[
-                  {
-                    value: "morning",
-                    label: "Ca sáng Bác sĩ",
-                  },
-                  {
-                    value: "afternoon",
-                    label: "Ca chiều Bác sĩ",
-                  },
-                  {
-                    value: "evening",
-                    label: "Ca tối Bác sĩ",
-                  },
-                ]}
-              />
-            </Form.Item>
-            <Form.Item
-              name="ten"
-              label="Tên khung giờ:"
-              rules={[{ required: true, message: "Nhập vào tên khung giờ!" }]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item label="Khung giờ" required>
-              <Form.Item
-                name="start"
-                initialValue={dayjs("12:08", format)}
-                rules={[{ required: true, message: "Nhập giờ bắt đầu!" }]}
-                style={{ display: "inline-block", width: "calc(50% - 8px)" }}
-              >
-                <TimePicker format={format} />
-              </Form.Item>
-              <Form.Item
-                name="end"
-                initialValue={dayjs("12:08", format)}
-                rules={[{ required: true, message: "Nhập giờ kết thúc!" }]}
-                style={{
-                  display: "inline-block",
-                  width: "calc(50% - 8px)",
-                  margin: "0 8px",
-                }}
-              >
-                <TimePicker format={format} />
-              </Form.Item>
-            </Form.Item>
-          </Form>
-        </Modal>
+          onEdit={handleEdit}
+          onCancel={closeModalUpdate}
+        />
         <Modal
           title="Cảnh báo"
           open={modalDelOpen}

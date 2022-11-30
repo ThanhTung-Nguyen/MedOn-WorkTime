@@ -82,6 +82,9 @@ color: #1890ff;
 .ant-table.ant-table-bordered>.ant-table-container>.ant-table-content>table>thead>tr>th {
         border-right: 1px solid #f0f0f0;
 }
+.ant-table-tbody>tr.ant-table-row-selected>td  {
+    background: #e6f7ff;
+}
 .modalAdd {
     height: 44px;
     display: flex;

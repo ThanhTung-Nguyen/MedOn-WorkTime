@@ -1,42 +1,48 @@
 import React, { useState } from "react";
-import { Button, Space, Modal, Form, Input, Select, Table } from "antd";
-import { DaTaType } from "../Worktime/Worktime";
-import { TimePicker } from "antd";
+import { Button, Form, Input, Modal, Radio } from "antd";
+import { TimePicker, Select } from "antd";
+import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
-// import { type } from "@testing-library/user-event/dist/type";
+import { DaTaType } from "../Worktime/Worktime";
 
 const format = "HH:mm";
-type ModalAddProps = {
-  open: boolean;
-  onOK: ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void) | undefined;
-  onCancel:
-    | ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void)
-    | undefined;
-  onSubmit: (a: DaTaType) => void;
+interface ModalEditFormProps {
+    open: boolean;
+    onEdit: (values: DaTaType) => void;
+    onCancel: () => void;
 };
-const ModalAdd: React.FC<ModalAddProps> = (props) => {
+
+const ModalEdit: React.FC<ModalEditFormProps> = ({
+  open,
+  onEdit,
+  onCancel,
+}) => {
+    const [form] = Form.useForm();
   return (
     <>
       <Modal
-        title="Thêm mới"
-        open={props.open}
-        onOk={props.onOK}
-        onCancel={props.onCancel}
-        footer={[
-          <Form.Item>
-            <Button type="primary" htmlType="submit" form="formAdd">
-              Lưu
-            </Button>
-          </Form.Item>,
-        ]}
+        title="Cập nhật"
+        open={open}
+        onOk={() => {
+          form
+            .validateFields()
+            .then((values) => {
+              form.resetFields();
+              onEdit(values);
+            })
+            .catch((info) => {
+              console.log("Validate Failed:", info);
+            });
+        }}
+        onCancel={onCancel}
       >
         <Form
-          id="formAdd"
+          form={form}
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
           autoComplete="off"
           labelAlign="left"
-          onFinish={props.onSubmit}
+        //   onFinish={onFinish}
         >
           <Form.Item
             label="Loại khung giờ:"
@@ -64,7 +70,7 @@ const ModalAdd: React.FC<ModalAddProps> = (props) => {
           <Form.Item
             label="Ca làm việc:"
             name="ca"
-            required
+            rules={[{ required: true, message: "Nhập vào ca làm việc!" }]}
           >
             <Select
               showSearch
@@ -98,7 +104,7 @@ const ModalAdd: React.FC<ModalAddProps> = (props) => {
           <Form.Item label="Khung giờ" required>
             <Form.Item
               name="start"
-              initialValue={dayjs("00:00", format)}
+              initialValue={dayjs("12:08", format)}
               rules={[{ required: true, message: "Nhập giờ bắt đầu!" }]}
               style={{ display: "inline-block", width: "calc(50% - 8px)" }}
             >
@@ -106,7 +112,7 @@ const ModalAdd: React.FC<ModalAddProps> = (props) => {
             </Form.Item>
             <Form.Item
               name="end"
-              initialValue={dayjs("00:00", format)}
+              initialValue={dayjs("12:08", format)}
               rules={[{ required: true, message: "Nhập giờ kết thúc!" }]}
               style={{
                 display: "inline-block",
@@ -122,4 +128,4 @@ const ModalAdd: React.FC<ModalAddProps> = (props) => {
     </>
   );
 };
-export default ModalAdd;
+export default ModalEdit;

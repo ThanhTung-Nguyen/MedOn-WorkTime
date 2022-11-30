@@ -94,7 +94,13 @@ const GateWayStag = () => {
 
   return (
     <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        width={255}
+        collapsedWidth={0}
+      >
         <header className="logo">
           {/* <Image
               src="https://gatewaystag.medon.vn/cms/static/media/logo-trang-01.46dbc2d7.png"
@@ -104,6 +110,7 @@ const GateWayStag = () => {
             /> */}
         </header>
         <Menu
+          // subMenuCloseDelay={0.3}
           defaultSelectedKeys={["1"]}
           defaultOpenKeys={[""]}
           mode="inline"

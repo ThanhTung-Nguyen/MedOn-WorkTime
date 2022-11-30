@@ -1,25 +1,33 @@
+import React from "react";
 import { Space, Select, Button } from "antd";
 import { ReloadOutlined } from "@ant-design/icons";
+import { Typography } from "antd";
+import { DefaultOptionType } from "antd/es/select";
 
+
+const { Title } = Typography;
 const { Option } = Select;
-const SelectBtnReset = () => {
-  const handleChange = (value: string) => {
-    console.log(value);
-  };
+// type SelectBtnResetProps = {
+//   onChange:
+//     | ((value: string, option: DefaultOptionType | DefaultOptionType[]) => void)
+//     | undefined;
+// };
+const SelectBtnReset:React.FC = (props) => {
+  
   return (
     <>
-      <Space>
-        <p>Loại khung giờ:</p>
+      <Space style={{margin: "15px 0"}}>
+        <Title level={5}>Loại khung giờ:</Title>
         <Select
-          size="large"
+          size="middle"
           defaultValue="Tất cả"
           style={{ width: 260, textAlign: "left" }}
-          onChange={handleChange}
+          // onChange={props.onChange}
         >
           <Option value="vidcall">Video Call</Option>
           <Option value="normal">Lịch thường</Option>
         </Select>
-        <Button icon={<ReloadOutlined />} size={"large"}>
+        <Button icon={<ReloadOutlined />} size={"middle"}>
           Reset
         </Button>
       </Space>
