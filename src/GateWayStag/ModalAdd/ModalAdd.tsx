@@ -13,6 +13,7 @@ type ModalAddProps = {
     | ((e: React.MouseEvent<HTMLElement, MouseEvent>) => void)
     | undefined;
   onSubmit: (a: DaTaType) => void;
+
 };
 const ModalAdd: React.FC<ModalAddProps> = (props) => {
   return (

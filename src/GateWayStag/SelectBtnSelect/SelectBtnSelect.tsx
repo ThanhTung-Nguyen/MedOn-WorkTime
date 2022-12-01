@@ -16,7 +16,7 @@ const SelectBtnReset:React.FC = (props) => {
   
   return (
     <>
-      <Space style={{margin: "15px 0"}}>
+      <Space style={{ margin: "15px 0" }}>
         <Title level={5}>Loại khung giờ:</Title>
         <Select
           size="middle"
@@ -27,7 +27,7 @@ const SelectBtnReset:React.FC = (props) => {
           <Option value="vidcall">Video Call</Option>
           <Option value="normal">Lịch thường</Option>
         </Select>
-        <Button icon={<ReloadOutlined />} size={"middle"}>
+        <Button block={false} icon={<ReloadOutlined />} size={"middle"}>
           Reset
         </Button>
       </Space>

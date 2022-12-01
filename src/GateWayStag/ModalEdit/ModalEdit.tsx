@@ -7,13 +7,15 @@ import { DaTaType } from "../Worktime/Worktime";
 
 const format = "HH:mm";
 interface ModalEditFormProps {
-    open: boolean;
-    onEdit: (values: DaTaType) => void;
-    onCancel: () => void;
-};
+  data: any;
+  open: boolean;
+  onEdit: (values: DaTaType) => void;
+  onCancel: () => void;
+}
 
 const ModalEdit: React.FC<ModalEditFormProps> = (props) => {
-    const [form] = Form.useForm();
+  const [form] = Form.useForm();
+  console.log(props.data);
   return (
     <>
       <Modal
@@ -38,7 +40,7 @@ const ModalEdit: React.FC<ModalEditFormProps> = (props) => {
           wrapperCol={{ span: 16 }}
           autoComplete="off"
           labelAlign="left"
-        //   onFinish={onFinish}
+          //   onFinish={onFinish}
         >
           <Form.Item
             label="Loại khung giờ:"
@@ -48,7 +50,8 @@ const ModalEdit: React.FC<ModalEditFormProps> = (props) => {
             <Select
               showSearch
               allowClear
-              size="large"
+              size="middle"
+              value={props?.data?.loai}
               placeholder="-- Chọn loại khung giờ --"
               style={{ width: 315, textAlign: "left" }}
               options={[
@@ -71,7 +74,8 @@ const ModalEdit: React.FC<ModalEditFormProps> = (props) => {
             <Select
               showSearch
               allowClear
-              size="large"
+              size="middle"
+              value={props?.data?.ca}
               placeholder="-- Chọn ca làm việc --"
               style={{ width: 315, textAlign: "left" }}
               options={[
@@ -95,7 +99,7 @@ const ModalEdit: React.FC<ModalEditFormProps> = (props) => {
             label="Tên khung giờ:"
             rules={[{ required: true, message: "Nhập vào tên khung giờ!" }]}
           >
-            <Input />
+            <Input value={props?.data?.ten} />
           </Form.Item>
           <Form.Item label="Khung giờ" required>
             <Form.Item
@@ -104,7 +108,7 @@ const ModalEdit: React.FC<ModalEditFormProps> = (props) => {
               rules={[{ required: true, message: "Nhập giờ bắt đầu!" }]}
               style={{ display: "inline-block", width: "calc(50% - 8px)" }}
             >
-              <TimePicker format={format} />
+              <TimePicker format={format} value={props?.data?.start} />
             </Form.Item>
             <Form.Item
               name="end"
@@ -116,7 +120,7 @@ const ModalEdit: React.FC<ModalEditFormProps> = (props) => {
                 margin: "0 8px",
               }}
             >
-              <TimePicker format={format} />
+              <TimePicker format={format} value={props?.data?.end} />
             </Form.Item>
           </Form.Item>
         </Form>

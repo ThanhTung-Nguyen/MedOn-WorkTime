@@ -1,4 +1,4 @@
-import { Menu, MenuProps } from "antd";
+import { Avatar, Menu, MenuProps } from "antd";
 import {
   UserOutlined,
   LockOutlined,
@@ -26,7 +26,10 @@ const UserNavBar = () => {
   return (
     <>
       <Menu mode="horizontal" style={{ fontSize: "20px" }}>
-        <Menu.SubMenu key={"SubMenu"} title="Quản trị viên">
+        <Menu.SubMenu
+          key={"SubMenu"}
+          title="Quản trị viên"
+        >
           <Menu.Item key="one" icon={<UserOutlined />}>
             Tài khoản
           </Menu.Item>

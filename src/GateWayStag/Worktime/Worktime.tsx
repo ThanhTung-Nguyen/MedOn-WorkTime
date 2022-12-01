@@ -9,7 +9,7 @@ import {
   DeleteOutlined,
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
-import { Button, Space, Modal, Form, Input, Popconfirm, Table } from "antd";
+import { Button, Space, Modal, Form, Table,} from "antd";
 import { Checkbox } from "antd";
 import { TimePicker } from "antd";
 import { ColumnsType } from "antd/es/table";
@@ -24,7 +24,8 @@ import ModalEdit from "../ModalEdit/ModalEdit";
 import "./Worktime.css";
 
 const format = "HH:mm";
-
+const { Title } = Typography;
+const { Option } = Select;
 export interface DaTaType {
   key: string;
   ten: string;
@@ -63,7 +64,7 @@ const data: DaTaType[] = [
   {
     key: "1",
     ten: "07h00-08h00",
-    loai: "Video Call",
+    loai: "normal",
     ca: "morning",
     start: "2022-11-30T07:00",
     end: "2022-11-30T08:00",
@@ -83,7 +84,7 @@ const data: DaTaType[] = [
   {
     key: "3",
     ten: "09h00-10h00",
-    loai: "Video Call",
+    loai: "normal",
     ca: "morning",
     start: "2022-11-30T09:00",
     end: "2022-11-30T10:00",
@@ -103,8 +104,8 @@ const data: DaTaType[] = [
   {
     key: "5",
     ten: "11h00-12h00",
-    loai: "Video Call",
-    ca: "morning",
+    loai: "normal",
+    ca: "",
     start: "2022-11-30T11:00",
     end: "2022-11-30T12:00",
     create: "15/11/2022",
@@ -114,7 +115,7 @@ const data: DaTaType[] = [
     key: "6",
     ten: "12h00-13h00",
     loai: "vidcall",
-    ca: "afternoon",
+    ca: "",
     start: "2022-11-30T12:00",
     end: "2022-11-30T13:00",
     create: "15/11/2022",
@@ -123,8 +124,8 @@ const data: DaTaType[] = [
   {
     key: "7",
     ten: "13h00-14h00",
-    loai: "Video Call",
-    ca: "afternoon",
+    loai: "normal",
+    ca: "",
     start: "2022-11-30T13:00",
     end: "2022-11-30T14:00",
     create: "15/11/2022",
@@ -135,20 +136,6 @@ const data: DaTaType[] = [
 //TODO: View WorkTime Page
 const Worktime = () => {
   const columns: ColumnsType<FixedDataType> = [
-    // {
-    //   title: "",
-    //   dataIndex: "",
-    //   width: "3%",
-    //   render: () => (
-    //     <Checkbox
-    //       style={{
-    //         display: "flex",
-    //         justifyContent: "center",
-    //         alignItems: "center",
-    //       }}
-    //     ></Checkbox>
-    //   ),
-    // },
     {
       title: "Tên khung giờ",
       dataIndex: "ten",
@@ -169,6 +156,7 @@ const Worktime = () => {
               <Tag>Video Call</Tag>
             </Tooltip>
           );
+        if (a === "normal")
         return (
           <Tooltip title="Click đúp chuột để xem chi tiết">
             <Tag>Lịch thường</Tag>
@@ -261,38 +249,49 @@ const Worktime = () => {
       title: "Thao tác",
       dataIndex: "operation",
       width: "6%",
-      fixed: "right",
+      // fixed: "right",
       //TODO: Action Button
-      render: (_: any, record: any, index: any) => (
-        <Space size="middle">
-          <Button
-            type="primary"
-            ghost
-            onClick={() => {
-              showModalUpdate();
-              setEditrow(index);
-            }}
-            icon={<EditOutlined />}
-          ></Button>
-          <Button
-            danger
-            onClick={() => {
-              showModalDel();
-              setSelectedrow(index);
-            }}
-            icon={<DeleteOutlined />}
-          ></Button>
-        </Space>
-      ),
+      render: (_: any, record: any, index: any) => {  
+        return (
+          <Space size="middle">
+            <Button
+              type="primary"
+              ghost
+              onClick={() => {
+                setEditrow(record);
+                showModalUpdate();
+                // handleEdit(record);
+              }}
+              icon={<EditOutlined />}
+            ></Button>
+            <Button
+              danger
+              onClick={() => {
+                showModalDel();
+                setSelectedrow(index);
+              }}
+              icon={<DeleteOutlined />}
+            ></Button>
+            <Button
+              onClick={(e) => {
+                console.log("data:", record.ten, record.ca, record.loai, record.start);
+              }}
+            >
+              Log Data
+            </Button>
+          </Space>
+        );
+      },
     },
   ];
-
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalDelOpen, setModalDelOpen] = useState(false); //State Modal Delete
   const [arrlist, setArrlist] = useState<DaTaType[]>(data); //State Data Table
   const [selectedrow, setSelectedrow] = useState(0); //State chọn row để xoá
   const [modalEditOpen, setModalEditOpen] = useState(false); //State Modal Edit
   const [editrow, setEditrow] = useState(); //State chọn row để Edit
+  
 
   //TODO: Đóng mở MoDal Add
   const showModal = () => {
@@ -327,15 +326,10 @@ const Worktime = () => {
     setArrlist([...arrlist]);
   };
 
-  const handleEdit = (values:any) => {
+  const handleEdit = (values: any) => {
     console.log(values);
-    
   };
 
-  const onFinish = (values: any) => {
-    console.log("Values received", values);
-  };
-  const [form] = Form.useForm();
   const [select, setSelect] = useState({
     selectedRowKeys: [],
     loading: false,
@@ -357,7 +351,21 @@ const Worktime = () => {
           <ArrowTitle />
         </div>
         <div>
-          <SelectBtnReset />
+          <Space style={{ margin: "15px 0" }}>
+            <Title level={5}>Loại khung giờ:</Title>
+            <Select
+              size="middle"
+              defaultValue="Tất cả"
+              style={{ width: 260, textAlign: "left" }}
+              // onChange={props.onChange}
+            >
+              <Option value="vidcall">Video Call</Option>
+              <Option value="normal">Lịch thường</Option>
+            </Select>
+            <Button icon={<ReloadOutlined />} size={"middle"}>
+              Reset
+            </Button>
+          </Space>
         </div>
       </div>
       <div className="modalAdd">
@@ -383,16 +391,18 @@ const Worktime = () => {
           onRow={(record, index) => {
             return {
               onDoubleClick: () => {
-                // handleEdit();
+                // handleEdit(record);
                 setModalEditOpen(true);
               },
             };
           }}
         />
         <ModalEdit
+          data={editrow}
           open={modalEditOpen}
           onEdit={handleEdit}
           onCancel={closeModalUpdate}
+          
         />
         <Modal
           title="Cảnh báo"

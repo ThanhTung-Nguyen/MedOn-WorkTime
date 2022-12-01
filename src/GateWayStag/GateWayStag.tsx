@@ -14,15 +14,19 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   ContainerOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu } from "antd";
+import { Avatar } from "antd";
+import { Layout, Menu, Space } from "antd";
 import type { MenuProps } from "antd";
 import UserNavBar from "./UserNavBar/UserNavBar";
+import { Typography } from "antd";
 import Worktime from "./Worktime/Worktime";
 import Footer from "./Footer/Footer";
 import { Image } from "antd";
 import "./GateWayStag.css";
 
+const { Title, Text } = Typography;
 type MenuItem = Required<MenuProps>["items"][number];
 const { Header, Sider, Content } = Layout;
 function getItem(
@@ -102,12 +106,31 @@ const GateWayStag = () => {
         collapsedWidth={0}
       >
         <header className="logo">
-          {/* <Image
+          <div className="imagelogo">
+            <Image
               src="https://gatewaystag.medon.vn/cms/static/media/logo-trang-01.46dbc2d7.png"
-              width={150}
-              style={{ padding: 0 }}
+              width={"150px"}
+              height={60}
               preview={false}
-            /> */}
+            />
+          </div>
+          <div className="avtadmin">
+            <div>
+              <Avatar
+                size={64}
+                icon={<UserOutlined />}
+                style={{ backgroundColor: "#BFBFBF" }}
+              />
+            </div>
+            <div className="info">
+              <Title level={4} style={{ color: "white", }}>
+                Quản trị viên
+              </Title>
+              <p style={{ color: "#7f7f7f", fontSize: "1rem" }}>
+                admin@gmail.com
+              </p>
+            </div>
+          </div>
         </header>
         <Menu
           // subMenuCloseDelay={0.3}
