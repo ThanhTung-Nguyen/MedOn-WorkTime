@@ -24,14 +24,21 @@ const UserNavBar = () => {
     },
   ];
   return (
-    <>
-      <Menu mode="horizontal" style={{ fontSize: "20px" }}>
-        <Menu.SubMenu
-          key={"SubMenu"}
-          title="Quản trị viên"
-        >
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "flex-end",
+        alignItems: "center",
+      }}
+    >
+      <Menu
+        mode="horizontal"
+        theme="light"
+        style={{width: 120, position: "relative"}}
+      >
+        <Menu.SubMenu key={"SubMenu"} title="Quản trị viên">
           <Menu.Item key="one" icon={<UserOutlined />}>
-            Tài khoản
+           Tài khoản
           </Menu.Item>
           <Menu.Item key="two" icon={<LockOutlined />}>
             Đổi mật khẩu
@@ -41,7 +48,8 @@ const UserNavBar = () => {
           </Menu.Item>
         </Menu.SubMenu>
       </Menu>
-    </>
+      <Avatar size="default" icon={<UserOutlined />} style={{position: "relative", right: 15}} />
+    </div>
   );
 };
 export default UserNavBar;

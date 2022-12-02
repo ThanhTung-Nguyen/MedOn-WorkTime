@@ -123,7 +123,7 @@ const GateWayStag = () => {
               />
             </div>
             <div className="info">
-              <Title level={4} style={{ color: "white", }}>
+              <Title level={4} style={{ color: "white", position: "relative", top: "12px"}}>
                 Quản trị viên
               </Title>
               <p style={{ color: "#7f7f7f", fontSize: "1rem" }}>

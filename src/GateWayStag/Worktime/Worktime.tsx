@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { Typography } from "antd";
 import { Select } from "antd";
 import {
@@ -10,17 +10,16 @@ import {
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
 import { Button, Space, Modal, Form, Table,} from "antd";
-import { Checkbox } from "antd";
-import { TimePicker } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { Divider, Tag } from "antd";
+import { Tag } from "antd";
 import { Tooltip } from "antd";
 import ArrowTitle from "../ArrowTitle/ArrowTitle";
 import SelectBtnReset from "../SelectBtnSelect/SelectBtnSelect";
-import type { Dayjs } from "dayjs";
+// import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import ModalAdd from "../ModalAdd/ModalAdd";
 import ModalEdit from "../ModalEdit/ModalEdit";
+import Status from "../Status/Status";
 import "./Worktime.css";
 
 const format = "HH:mm";
@@ -227,7 +226,7 @@ const Worktime = () => {
     {
       title: "Trạng thái",
       dataIndex: "status",
-      filters: [
+      filters:[
         {
           text: "Đã duyệt",
           value: "duyet",
@@ -239,9 +238,7 @@ const Worktime = () => {
       ],
       render: () => {
         return (
-          <Tooltip title="Click đúp chuột để xem chi tiết">
-            <Tag color="blue">Đã duyệt</Tag>
-          </Tooltip>
+          <Status/>
         );
       },
     },
@@ -249,7 +246,7 @@ const Worktime = () => {
       title: "Thao tác",
       dataIndex: "operation",
       width: "6%",
-      // fixed: "right",
+      fixed: "right",
       //TODO: Action Button
       render: (_: any, record: any, index: any) => {  
         return (
@@ -265,6 +262,7 @@ const Worktime = () => {
               icon={<EditOutlined />}
             ></Button>
             <Button
+              shape="default"
               danger
               onClick={() => {
                 showModalDel();
@@ -272,18 +270,19 @@ const Worktime = () => {
               }}
               icon={<DeleteOutlined />}
             ></Button>
-            <Button
+            {/* <Button
               onClick={(e) => {
                 console.log("data:", record.ten, record.ca, record.loai, record.start);
               }}
             >
               Log Data
-            </Button>
+            </Button> */}
           </Space>
         );
       },
     },
   ];
+  
   
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalDelOpen, setModalDelOpen] = useState(false); //State Modal Delete
@@ -327,7 +326,7 @@ const Worktime = () => {
   };
 
   const handleEdit = (values: any) => {
-    console.log(values);
+    // console.log(values);
   };
 
   const [select, setSelect] = useState({
@@ -351,21 +350,7 @@ const Worktime = () => {
           <ArrowTitle />
         </div>
         <div>
-          <Space style={{ margin: "15px 0" }}>
-            <Title level={5}>Loại khung giờ:</Title>
-            <Select
-              size="middle"
-              defaultValue="Tất cả"
-              style={{ width: 260, textAlign: "left" }}
-              // onChange={props.onChange}
-            >
-              <Option value="vidcall">Video Call</Option>
-              <Option value="normal">Lịch thường</Option>
-            </Select>
-            <Button icon={<ReloadOutlined />} size={"middle"}>
-              Reset
-            </Button>
-          </Space>
+          <SelectBtnReset/>
         </div>
       </div>
       <div className="modalAdd">
@@ -390,6 +375,8 @@ const Worktime = () => {
           columns={columns}
           onRow={(record, index) => {
             return {
+              onClick: () => {
+              },
               onDoubleClick: () => {
                 // handleEdit(record);
                 setModalEditOpen(true);

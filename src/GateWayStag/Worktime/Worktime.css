@@ -80,8 +80,9 @@ color: #1890ff;
     border-radius: 0px;
 }
 .ant-table.ant-table-bordered>.ant-table-container>.ant-table-content>table>thead>tr>th {
-        border-right: 1px solid #f0f0f0;
+   border-right: 1px solid #f0f0f0;
 }
+
 .ant-table-tbody>tr.ant-table-row-selected>td  {
     background: #e6f7ff;
 }
@@ -91,4 +92,8 @@ color: #1890ff;
     justify-content: flex-end;
     padding: 5px;
     border: 1px solid rgb(240, 240, 240);
+}
+.ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-content >table >thead>tr>th {
+    border-radius: 0px;
+    border: 1px solid #fff
 }

@@ -5,8 +5,8 @@
   font-size: 100%;
 }
 .trigger {
-  padding: 0 24px;
-  font-size: 18px;
+  padding: 0 10px;
+  font-size: 16px;
   line-height: 64px;
   cursor: pointer;
   transition: color 0.3s;
@@ -74,6 +74,21 @@
 .ant-layout-content {
     flex: auto;
     min-height: 0;
+}
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    border-radius: 2px;
+}
+.ant-table-selection-col {
+  border-radius: 2px;
+}
+.ant-btn {
+  border-radius: 2px;
+}
+.ant-input {
+  border-radius: 2px;
+}
+.ant-picker {
+  border-radius: 2px;
 }
 .footer {
     /* display: -webkit-flex; */

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Button, Form, Input, Modal, Radio } from "antd";
+import { Form, Input, Modal } from "antd";
 import { TimePicker, Select } from "antd";
-import type { Dayjs } from "dayjs";
+// import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import { DaTaType } from "../Worktime/Worktime";
 
@@ -108,7 +108,11 @@ const ModalEdit: React.FC<ModalEditFormProps> = (props) => {
               rules={[{ required: true, message: "Nhập giờ bắt đầu!" }]}
               style={{ display: "inline-block", width: "calc(50% - 8px)" }}
             >
-              <TimePicker format={format} value={props?.data?.start} />
+              <TimePicker
+                format={format}
+                value={props?.data?.start}
+                size="large"
+              />
             </Form.Item>
             <Form.Item
               name="end"
@@ -120,7 +124,11 @@ const ModalEdit: React.FC<ModalEditFormProps> = (props) => {
                 margin: "0 8px",
               }}
             >
-              <TimePicker format={format} value={props?.data?.end} />
+              <TimePicker
+                format={format}
+                value={props?.data?.end}
+                size="large"
+              />
             </Form.Item>
           </Form.Item>
         </Form>

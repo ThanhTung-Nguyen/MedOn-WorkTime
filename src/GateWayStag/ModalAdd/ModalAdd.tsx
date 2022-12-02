@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Space, Modal, Form, Input, Select, Table } from "antd";
+import { Button, Modal, Form, Input, Select } from "antd";
 import { DaTaType } from "../Worktime/Worktime";
 import { TimePicker } from "antd";
 import dayjs from "dayjs";
@@ -47,7 +47,7 @@ const ModalAdd: React.FC<ModalAddProps> = (props) => {
             <Select
               showSearch
               allowClear
-              size="large"
+              size="middle"
               placeholder="-- Chọn loại khung giờ --"
               style={{ width: 315, textAlign: "left" }}
               options={[
@@ -62,15 +62,11 @@ const ModalAdd: React.FC<ModalAddProps> = (props) => {
               ]}
             ></Select>
           </Form.Item>
-          <Form.Item
-            label="Ca làm việc:"
-            name="ca"
-            required
-          >
+          <Form.Item label="Ca làm việc:" name="ca" required>
             <Select
               showSearch
               allowClear
-              size="large"
+              size="middle"
               placeholder="-- Chọn ca làm việc --"
               style={{ width: 315, textAlign: "left" }}
               options={[
@@ -103,7 +99,11 @@ const ModalAdd: React.FC<ModalAddProps> = (props) => {
               rules={[{ required: true, message: "Nhập giờ bắt đầu!" }]}
               style={{ display: "inline-block", width: "calc(50% - 8px)" }}
             >
-              <TimePicker format={format} />
+              <TimePicker
+                format={format}
+                size="large"
+                placeholder="Bắt đầu"
+              />
             </Form.Item>
             <Form.Item
               name="end"
@@ -115,7 +115,7 @@ const ModalAdd: React.FC<ModalAddProps> = (props) => {
                 margin: "0 8px",
               }}
             >
-              <TimePicker format={format} />
+              <TimePicker format={format} size="large" placeholder="Kết thúc" />
             </Form.Item>
           </Form.Item>
         </Form>
