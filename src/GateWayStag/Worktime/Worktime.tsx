@@ -291,7 +291,7 @@ const Worktime = () => {
       width: "6%",
       fixed: "right",
       //TODO: Button Thao tác
-      render: (_: any, record: any, index: any) => {
+      render: (value: any, record: any, index: any) => {
         return (
           <Space size="middle">
             <Button
@@ -308,10 +308,8 @@ const Worktime = () => {
               shape="default"
               danger
               onClick={() => {
-                setSelectedrow(index);
-                modalDel(index);
-                // console.log(index);
-                // showModalDel();
+                // setSelectedrow(index);
+                modalDel(record);
               }}
               icon={<DeleteOutlined />}
             ></Button>
@@ -331,11 +329,12 @@ const Worktime = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalDelOpen, setModalDelOpen] = useState(false); //State Modal Delete
   const [arrlist, setArrlist] = useState<DaTaType[]>(data); //State Data Table
-  const [selectedrow, setSelectedrow] = useState(0); //State chọn row để xoá
+  // const [selectedrow, setSelectedrow] = useState(0); //State chọn row để xoá
   const [modalEditOpen, setModalEditOpen] = useState(false); //State Modal Edit
-  const [editrow, setEditrow] = useState(); //State chọn row để Edit
+  const [editrow, setEditrow] = useState<DaTaType>(arrlist[0]); //State chọn row để Edit
+  
 
-  const modalDel = (selectedrow: any) => {
+  const modalDel = (value: any) => {
     Modal.confirm({
       title: "Cảnh báo",
       content: "Bạn có chắc muốn thực hiện hành động này?",
@@ -344,9 +343,8 @@ const Worktime = () => {
       cancelText: "Huỷ bỏ",
       open: modalDelOpen,
       onOk: () => {
-        handleDel(selectedrow);
+        handleDel(value);
         closeModalDel();
-        // console.log(index);
       },
       onCancel() {
         closeModalDel();
@@ -382,13 +380,16 @@ const Worktime = () => {
   };
   //TODO: Hàm Delete
   const handleDel = (selectedrow: any) => {
-    arrlist.splice(selectedrow, 1);
-    setArrlist([...arrlist]);
-    console.log(arrlist);
+    setArrlist(arrlist.filter((currentValue) => {return currentValue !== selectedrow}));
+    // console.log(selectedrow);
   };
 //TODO: Hàm Edit
   const handleEdit = (values: any) => {
-    // console.log(values);
+    let index = arrlist.indexOf(editrow);
+    arrlist[index] = {...editrow,...values};
+    setArrlist([...arrlist]);
+    setEditrow(arrlist[index]);
+    setModalEditOpen(false);
   };
 
   const [select, setSelect] = useState({
@@ -434,6 +435,7 @@ const Worktime = () => {
       <div>
         {/* TODO: Table */}
         <Table
+          
           rowSelection={rowSelection}
           bordered
           dataSource={arrlist}
