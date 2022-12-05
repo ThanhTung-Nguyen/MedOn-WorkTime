@@ -16,10 +16,10 @@ const SelectBtnReset:React.FC = (props) => {
   return (
     <>
       <Space style={{ margin: "15px 0" }}>
-        <Title level={5}>Loại khung giờ:</Title>
+        <p style={{marginRight: 35}}>Loại khung giờ:</p>
         <Select
           size="middle"
-          defaultValue="Tất cả"
+          defaultValue="vidcall"
           style={{ width: 260, textAlign: "left"}}
           // onChange={props.onChange}
         >

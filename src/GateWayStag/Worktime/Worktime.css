@@ -14,6 +14,7 @@
 .ant-page-header-heading {
     display: flex;
     justify-content: space-between;
+    margin-left: 30px;
 }
 .ant-page-header-heading-left {
     display: flex;
@@ -32,7 +33,6 @@
     padding: 0px;
     line-height: inherit;
     display: inline-block;
-    
     text-decoration: none;
     outline: none;
     transition: color .3s;
@@ -64,8 +64,11 @@ color: #1890ff;
     list-style: none;
     font-feature-settings: "tnum","tnum";
     position: relative;
-    padding: 16px 24px;
+    padding: 10px 0px;
     background-color: #fff;
+}
+.anticon-arrow-left {
+    color: black;
 }
 .ant-table-content{
     overflow: auto hidden;
@@ -75,7 +78,7 @@ color: #1890ff;
     background: #2073d3!important;
     color: #fff!important;
     position: relative;
-    padding: 16px;
+    padding: 10px;
     overflow-wrap: break-word;
     border-radius: 0px;
 }
@@ -95,5 +98,37 @@ color: #1890ff;
 }
 .ant-table-wrapper .ant-table.ant-table-bordered >.ant-table-container >.ant-table-content >table >thead>tr>th {
     border-radius: 0px;
-    border: 1px solid #fff
+    border: 1px solid #fff;
+    padding: 10px;
+}
+.ant-tag {
+    border-radius: 1px;
+}
+/* .ant-table-filter-trigger-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex: none;
+    align-items: stretch;
+    align-self: stretch;
+    cursor: pointer;
+    transition: background-color .3s;
+} */
+.ant-table-filter-trigger {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.3em;
+    color: #bfbfbf !important;
+    font-size: 12px;
+    transition: color .3s;
+}
+
+.ant-select-dropdown, .ant-select-item.ant-select-item-option {
+    border-radius: 1px;
+}
+.ant-table-wrapper .ant-table-tbody>tr>td {
+    padding: 10px;
 }

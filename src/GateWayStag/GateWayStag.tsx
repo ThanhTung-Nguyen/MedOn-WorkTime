@@ -23,6 +23,7 @@ import UserNavBar from "./UserNavBar/UserNavBar";
 import { Typography } from "antd";
 import Worktime from "./Worktime/Worktime";
 import Footer from "./Footer/Footer";
+import Trigger from "./Trigger/Trigger";
 import { Image } from "antd";
 import "./GateWayStag.css";
 
@@ -44,6 +45,7 @@ function getItem(
     type,
   } as MenuItem;
 }
+//TODO: Item Menu
 const items: MenuItem[] = [
   getItem("Quản lý tài khoản", "sub1", <ContactsOutlined />, [
     getItem("Nhóm quyền", "1"),
@@ -91,13 +93,13 @@ const items: MenuItem[] = [
     getItem("App Doctor", "24"),
   ]),
 ];
-//TODO: User NavBar
 
-const GateWayStag = () => {
+const GateWayStag = (props:any) => {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
     <Layout>
+      {/*TODO: Sider Menu*/}
       <Sider
         trigger={null}
         collapsible
@@ -123,7 +125,10 @@ const GateWayStag = () => {
               />
             </div>
             <div className="info">
-              <Title level={4} style={{ color: "white", position: "relative", top: "12px"}}>
+              <Title
+                level={4}
+                style={{ color: "white", position: "relative", top: "12px" }}
+              >
                 Quản trị viên
               </Title>
               <p style={{ color: "#7f7f7f", fontSize: "1rem" }}>
@@ -132,6 +137,7 @@ const GateWayStag = () => {
             </div>
           </div>
         </header>
+        {/*TODO: Menu*/}
         <Menu
           // subMenuCloseDelay={0.3}
           defaultSelectedKeys={["1"]}
@@ -152,13 +158,14 @@ const GateWayStag = () => {
           }}
         >
           <div>
-            {React.createElement(
+            {/* {React.createElement(
               collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
               {
                 className: "trigger",
                 onClick: () => setCollapsed(!collapsed),
               }
-            )}
+            )} */}
+            <Trigger collapsed={collapsed} setCollapsed={setCollapsed} />
           </div>
           <div>
             <UserNavBar />

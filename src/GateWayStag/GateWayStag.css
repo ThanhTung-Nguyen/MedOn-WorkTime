@@ -64,7 +64,7 @@
     padding: 12px;
     height: calc(100vh - 102px);
     overflow-y: auto;
-    display: -webkit-flex;
+    /* display: -webkit-flex; */
     display: flex;
     -webkit-flex-direction: column;
     flex-direction: column;
@@ -75,20 +75,8 @@
     flex: auto;
     min-height: 0;
 }
-.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+.ant-select:not(.ant-select-customize-input) .ant-select-selector, .ant-table-selection-col, .ant-btn, .ant-input, .ant-picker{
     border-radius: 2px;
-}
-.ant-table-selection-col {
-  border-radius: 2px;
-}
-.ant-btn {
-  border-radius: 2px;
-}
-.ant-input {
-  border-radius: 2px;
-}
-.ant-picker {
-  border-radius: 2px;
 }
 .footer {
     /* display: -webkit-flex; */

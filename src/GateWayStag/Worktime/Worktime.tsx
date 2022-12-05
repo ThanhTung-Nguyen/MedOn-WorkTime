@@ -2,29 +2,25 @@ import React, { useState } from "react";
 import { Typography } from "antd";
 import { Select } from "antd";
 import {
-  ReloadOutlined,
-  ArrowLeftOutlined,
   PlusCircleOutlined,
   EditOutlined,
   DeleteOutlined,
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
-import { Button, Space, Modal, Form, Table,} from "antd";
+import { Button, Space, Modal, Form, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { Tag } from "antd";
 import { Tooltip } from "antd";
 import ArrowTitle from "../ArrowTitle/ArrowTitle";
 import SelectBtnReset from "../SelectBtnSelect/SelectBtnSelect";
-// import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import ModalAdd from "../ModalAdd/ModalAdd";
 import ModalEdit from "../ModalEdit/ModalEdit";
-import Status from "../Status/Status";
+// import Status from "../Status/Status";
 import "./Worktime.css";
 
 const format = "HH:mm";
-const { Title } = Typography;
-const { Option } = Select;
+//TODO: DaTaType
 export interface DaTaType {
   key: string;
   ten: string;
@@ -33,8 +29,9 @@ export interface DaTaType {
   start: string;
   end: string;
   create: string;
-  status: string;
+  status: boolean;
 }
+//TODO: FixedDataType
 interface FixedDataType {
   key: React.Key;
   ten: string;
@@ -43,11 +40,8 @@ interface FixedDataType {
   start: string;
   end: string;
   create: string;
-  status: string;
+  status: boolean;
 }
-// interface CollectionCreateFormProps {
-//   onCreate: (values: DaTaType) => void;
-// }
 //TODO: Data
 const data: DaTaType[] = [
   {
@@ -58,7 +52,7 @@ const data: DaTaType[] = [
     start: "2022-11-30T06:00",
     end: "2022-11-30T07:00",
     create: "15/11/2022",
-    status: "Đã duyệt",
+    status: true,
   },
   {
     key: "1",
@@ -68,7 +62,7 @@ const data: DaTaType[] = [
     start: "2022-11-30T07:00",
     end: "2022-11-30T08:00",
     create: "15/11/2022",
-    status: "Đã duyệt",
+    status: false,
   },
   {
     key: "2",
@@ -78,7 +72,7 @@ const data: DaTaType[] = [
     start: "2022-11-30T08:00",
     end: "2022-11-30T09:00",
     create: "15/11/2022",
-    status: "Đã duyệt",
+    status: true,
   },
   {
     key: "3",
@@ -88,7 +82,7 @@ const data: DaTaType[] = [
     start: "2022-11-30T09:00",
     end: "2022-11-30T10:00",
     create: "15/11/2022",
-    status: "Đã duyệt",
+    status: false,
   },
   {
     key: "4",
@@ -98,7 +92,7 @@ const data: DaTaType[] = [
     start: "2022-11-30T10:00",
     end: "2022-11-30T11:00",
     create: "15/11/2022",
-    status: "Đã duyệt",
+    status: true,
   },
   {
     key: "5",
@@ -108,7 +102,7 @@ const data: DaTaType[] = [
     start: "2022-11-30T11:00",
     end: "2022-11-30T12:00",
     create: "15/11/2022",
-    status: "Đã duyệt",
+    status: false,
   },
   {
     key: "6",
@@ -118,7 +112,7 @@ const data: DaTaType[] = [
     start: "2022-11-30T12:00",
     end: "2022-11-30T13:00",
     create: "15/11/2022",
-    status: "Đã duyệt",
+    status: true,
   },
   {
     key: "7",
@@ -128,12 +122,53 @@ const data: DaTaType[] = [
     start: "2022-11-30T13:00",
     end: "2022-11-30T14:00",
     create: "15/11/2022",
-    status: "Đã duyệt",
+    status: false,
+  },
+  {
+    key: "8",
+    ten: "14h00-15h00",
+    loai: "vidcall",
+    ca: "",
+    start: "2022-11-30T14:00",
+    end: "2022-11-30T15:00",
+    create: "15/11/2022",
+    status: true,
+  },
+  {
+    key: "9",
+    ten: "15h00-16h00",
+    loai: "normal",
+    ca: "",
+    start: "2022-11-30T15:00",
+    end: "2022-11-30T16:00",
+    create: "15/11/2022",
+    status: false,
+  },
+  {
+    key: "10",
+    ten: "16h00-17h00",
+    loai: "vidcall",
+    ca: "",
+    start: "2022-11-30T16:00",
+    end: "2022-11-30T17:00",
+    create: "15/11/2022",
+    status: true,
+  },
+  {
+    key: "11",
+    ten: "17h00-18h00",
+    loai: "normal",
+    ca: "",
+    start: "2022-11-30T17:00",
+    end: "2022-11-30T18:00",
+    create: "15/11/2022",
+    status: false,
   },
 ];
 
-//TODO: View WorkTime Page
+//TODO: Worktime const
 const Worktime = () => {
+  //TODO: Columns
   const columns: ColumnsType<FixedDataType> = [
     {
       title: "Tên khung giờ",
@@ -156,11 +191,11 @@ const Worktime = () => {
             </Tooltip>
           );
         if (a === "normal")
-        return (
-          <Tooltip title="Click đúp chuột để xem chi tiết">
-            <Tag>Lịch thường</Tag>
-          </Tooltip>
-        );
+          return (
+            <Tooltip title="Click đúp chuột để xem chi tiết">
+              <Tag>Lịch thường</Tag>
+            </Tooltip>
+          );
       },
     },
     {
@@ -226,29 +261,37 @@ const Worktime = () => {
     {
       title: "Trạng thái",
       dataIndex: "status",
-      filters:[
-        {
-          text: "Đã duyệt",
-          value: "duyet",
-        },
-        {
-          text: "Không duyệt",
-          value: "koduyet",
-        },
-      ],
-      render: () => {
+      //TODO: Trạng thái
+      render: (completed) => {
+        if (completed === true) {
+          return (
+            <Tooltip title="Click đúp chuột để xem chi tiết">
+              <Tag color="blue">Đã duyệt</Tag>
+            </Tooltip>
+          )
+        };
         return (
-          <Status/>
+          <Tooltip title="Click đúp chuột để xem chi tiết">
+            <Tag color="volcano">Không duyệt</Tag>
+          </Tooltip>
         );
       },
+      filters: [
+        { text: "Đã duyệt", value: true },
+        { text: "Không duyệt", value: false },
+      ],
+      onFilter: (value, record) => {
+        return record.status === value;
+      },
+
     },
     {
       title: "Thao tác",
       dataIndex: "operation",
       width: "6%",
       fixed: "right",
-      //TODO: Action Button
-      render: (_: any, record: any, index: any) => {  
+      //TODO: Button Thao tác
+      render: (_: any, record: any, index: any) => {
         return (
           <Space size="middle">
             <Button
@@ -265,8 +308,10 @@ const Worktime = () => {
               shape="default"
               danger
               onClick={() => {
-                showModalDel();
                 setSelectedrow(index);
+                modalDel(index);
+                // console.log(index);
+                // showModalDel();
               }}
               icon={<DeleteOutlined />}
             ></Button>
@@ -282,16 +327,32 @@ const Worktime = () => {
       },
     },
   ];
-  
-  
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalDelOpen, setModalDelOpen] = useState(false); //State Modal Delete
   const [arrlist, setArrlist] = useState<DaTaType[]>(data); //State Data Table
   const [selectedrow, setSelectedrow] = useState(0); //State chọn row để xoá
   const [modalEditOpen, setModalEditOpen] = useState(false); //State Modal Edit
   const [editrow, setEditrow] = useState(); //State chọn row để Edit
-  
 
+  const modalDel = (selectedrow: any) => {
+    Modal.confirm({
+      title: "Cảnh báo",
+      content: "Bạn có chắc muốn thực hiện hành động này?",
+      icon: <ExclamationCircleOutlined />,
+      okText: "Đồng ý",
+      cancelText: "Huỷ bỏ",
+      open: modalDelOpen,
+      onOk: () => {
+        handleDel(selectedrow);
+        closeModalDel();
+        // console.log(index);
+      },
+      onCancel() {
+        closeModalDel();
+      },
+    });
+  };
   //TODO: Đóng mở MoDal Add
   const showModal = () => {
     setIsModalOpen(true);
@@ -320,11 +381,12 @@ const Worktime = () => {
     closeModal();
   };
   //TODO: Hàm Delete
-  const handleDel = () => {
+  const handleDel = (selectedrow: any) => {
     arrlist.splice(selectedrow, 1);
     setArrlist([...arrlist]);
+    console.log(arrlist);
   };
-
+//TODO: Hàm Edit
   const handleEdit = (values: any) => {
     // console.log(values);
   };
@@ -343,6 +405,7 @@ const Worktime = () => {
       });
     },
   };
+  //TODO: View Work Time
   return (
     <div className="sc-eCApnc iylGhi">
       <div className="ant-page-header ant-page-header-ghost">
@@ -350,9 +413,10 @@ const Worktime = () => {
           <ArrowTitle />
         </div>
         <div>
-          <SelectBtnReset/>
+          <SelectBtnReset />
         </div>
       </div>
+      {/* TODO: Modal ADD */}
       <div className="modalAdd">
         <Button
           icon={<PlusCircleOutlined style={{ color: "#26C705" }} />}
@@ -368,34 +432,35 @@ const Worktime = () => {
         />
       </div>
       <div>
+        {/* TODO: Table */}
         <Table
           rowSelection={rowSelection}
           bordered
           dataSource={arrlist}
           columns={columns}
-          onRow={(record, index) => {
+          onRow={(record: any, index) => {
             return {
-              onClick: () => {
-              },
+              onClick: () => {},
               onDoubleClick: () => {
-                // handleEdit(record);
+                setEditrow(record);
                 setModalEditOpen(true);
               },
             };
           }}
         />
+        {/* TODO: Modal Edit */}
         <ModalEdit
           data={editrow}
           open={modalEditOpen}
           onEdit={handleEdit}
           onCancel={closeModalUpdate}
-          
         />
+        {/* TODO: Modal Delete */}
         <Modal
           title="Cảnh báo"
           open={modalDelOpen}
           onOk={(e) => {
-            handleDel();
+            // handleDel();
             closeModalDel();
           }}
           onCancel={closeModalDel}
