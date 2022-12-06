@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Typography } from "antd";
 import { Select } from "antd";
 import {
@@ -6,8 +6,9 @@ import {
   EditOutlined,
   DeleteOutlined,
   ExclamationCircleOutlined,
+  ReloadOutlined,
 } from "@ant-design/icons";
-import { Button, Space, Modal, Form, Table } from "antd";
+import { Button, Space, Modal, Form, Table, message } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { Tag } from "antd";
 import { Tooltip } from "antd";
@@ -19,6 +20,7 @@ import ModalEdit from "../ModalEdit/ModalEdit";
 // import Status from "../Status/Status";
 import "./Worktime.css";
 
+const { Option } = Select;
 const format = "HH:mm";
 //TODO: DaTaType
 export interface DaTaType {
@@ -268,8 +270,8 @@ const Worktime = () => {
             <Tooltip title="Click đúp chuột để xem chi tiết">
               <Tag color="blue">Đã duyệt</Tag>
             </Tooltip>
-          )
-        };
+          );
+        }
         return (
           <Tooltip title="Click đúp chuột để xem chi tiết">
             <Tag color="volcano">Không duyệt</Tag>
@@ -283,44 +285,49 @@ const Worktime = () => {
       onFilter: (value, record) => {
         return record.status === value;
       },
-
     },
     {
       title: "Thao tác",
       dataIndex: "operation",
-      width: "6%",
+      width: "7.5%",
       fixed: "right",
       //TODO: Button Thao tác
       render: (value: any, record: any, index: any) => {
         return (
-          <Space size="middle">
-            <Button
-              type="primary"
-              ghost
-              onClick={() => {
-                setEditrow(record);
-                showModalUpdate();
-                // handleEdit(record);
-              }}
-              icon={<EditOutlined />}
-            ></Button>
-            <Button
-              shape="default"
-              danger
-              onClick={() => {
-                // setSelectedrow(index);
-                modalDel(record);
-              }}
-              icon={<DeleteOutlined />}
-            ></Button>
-            {/* <Button
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Space size="middle">
+              <Button
+                type="primary"
+                ghost
+                onClick={() => {
+                  setEditrow(record);
+                  showModalUpdate();
+                }}
+                icon={<EditOutlined />}
+              ></Button>
+              <Button
+                shape="default"
+                danger
+                onClick={() => {
+                  modalDel(record);
+                }}
+                icon={<DeleteOutlined />}
+              ></Button>
+              {/* <Button
               onClick={(e) => {
                 console.log("data:", record.ten, record.ca, record.loai, record.start);
               }}
             >
               Log Data
             </Button> */}
-          </Space>
+            </Space>
+          </div>
         );
       },
     },
@@ -329,10 +336,34 @@ const Worktime = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalDelOpen, setModalDelOpen] = useState(false); //State Modal Delete
   const [arrlist, setArrlist] = useState<DaTaType[]>(data); //State Data Table
-  // const [selectedrow, setSelectedrow] = useState(0); //State chọn row để xoá
   const [modalEditOpen, setModalEditOpen] = useState(false); //State Modal Edit
-  const [editrow, setEditrow] = useState<DaTaType>(arrlist[0]); //State chọn row để Edit
-  
+  const [editrow, setEditrow] = useState<any>(); //State chọn row để Edit
+
+  const [messageApi, contextHolder] = message.useMessage();
+  const [filter, setfilter] = useState<string>("vidcall");
+  useEffect(() => {
+    let a = arrlist.filter((currentValue) => currentValue.loai === filter);
+    console.log(filter);
+    if (filter) {
+      let a = data.filter((currentValue) => currentValue.loai === filter);
+      setArrlist(a);
+    } else {
+      setArrlist(data);
+    }
+    console.log(a);
+
+    // setArrlist( arrlist.filter((currentValue) =>
+    //   currentValue.loai === filter
+
+    // ));
+  }, [filter]);
+
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "Thành công",
+    });
+  };
 
   const modalDel = (value: any) => {
     Modal.confirm({
@@ -371,25 +402,33 @@ const Worktime = () => {
   };
   const closeModalUpdate = () => {
     setModalEditOpen(false);
+    setEditrow("");
   };
   //TODO: Hàm Add
   const onSubmit = (a: DaTaType) => {
     arrlist.push(a);
     setArrlist([...arrlist]);
     closeModal();
+    success();
   };
   //TODO: Hàm Delete
   const handleDel = (selectedrow: any) => {
-    setArrlist(arrlist.filter((currentValue) => {return currentValue !== selectedrow}));
+    setArrlist(
+      arrlist.filter((currentValue) => {
+        return currentValue !== selectedrow;
+      })
+    );
+    success();
     // console.log(selectedrow);
   };
-//TODO: Hàm Edit
+  //TODO: Hàm Edit
   const handleEdit = (values: any) => {
     let index = arrlist.indexOf(editrow);
-    arrlist[index] = {...editrow,...values};
+    arrlist[index] = { ...editrow, ...values };
     setArrlist([...arrlist]);
-    setEditrow(arrlist[index]);
+    // setEditrow(arrlist[index]);
     setModalEditOpen(false);
+    success();
   };
 
   const [select, setSelect] = useState({
@@ -406,15 +445,51 @@ const Worktime = () => {
       });
     },
   };
+
   //TODO: View Work Time
   return (
     <div className="sc-eCApnc iylGhi">
+      {contextHolder}
       <div className="ant-page-header ant-page-header-ghost">
         <div>
           <ArrowTitle />
         </div>
         <div>
-          <SelectBtnReset />
+          <Space style={{ margin: "15px 0" }}>
+            <p style={{ marginRight: 35 }}>Loại khung giờ:</p>
+            <Select
+              defaultValue={"vidcall"}
+              style={{ width: 260, textAlign: "left" }}
+              options={[
+                {
+                  id: 1,
+                  value: "vidcall",
+                  label: "Video Call",
+                },
+                {
+                  id: 2,
+                  value: "normal",
+                  label: "Lịch thường",
+                },
+              ]}
+              onChange={(value: any, option) => {
+                setfilter(value);
+              }}
+            />
+
+            <Button
+              block={false}
+              icon={<ReloadOutlined />}
+              size={"middle"}
+              style={{ borderRadius: 0 }}
+              onClick={() => {
+                setfilter("vidcall");
+                setArrlist(data);
+              }}
+            >
+              Reset
+            </Button>
+          </Space>
         </div>
       </div>
       {/* TODO: Modal ADD */}
@@ -435,10 +510,17 @@ const Worktime = () => {
       <div>
         {/* TODO: Table */}
         <Table
-          
           rowSelection={rowSelection}
           bordered
-          dataSource={arrlist}
+          dataSource={
+            arrlist
+            // arrlist.filter((element) => {
+            // if (element.loai == "vidcall") {
+            //   return true;
+            // }
+            // return false;
+            // })
+          }
           columns={columns}
           onRow={(record: any, index) => {
             return {
@@ -452,23 +534,12 @@ const Worktime = () => {
         />
         {/* TODO: Modal Edit */}
         <ModalEdit
+          setEditrow={setEditrow}
           data={editrow}
           open={modalEditOpen}
           onEdit={handleEdit}
           onCancel={closeModalUpdate}
         />
-        {/* TODO: Modal Delete */}
-        <Modal
-          title="Cảnh báo"
-          open={modalDelOpen}
-          onOk={(e) => {
-            // handleDel();
-            closeModalDel();
-          }}
-          onCancel={closeModalDel}
-        >
-          <p>Bạn có chắc muốn thực hiện hành động này?</p>
-        </Modal>
       </div>
     </div>
   );

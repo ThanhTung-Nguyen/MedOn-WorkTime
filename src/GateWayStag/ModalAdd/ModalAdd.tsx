@@ -101,7 +101,6 @@ const ModalAdd: React.FC<ModalAddProps> = (props) => {
             >
               <TimePicker
                 format={format}
-                size="large"
                 placeholder="Bắt đầu"
               />
             </Form.Item>
@@ -115,7 +114,7 @@ const ModalAdd: React.FC<ModalAddProps> = (props) => {
                 margin: "0 8px",
               }}
             >
-              <TimePicker format={format} size="large" placeholder="Kết thúc" />
+              <TimePicker format={format} placeholder="Kết thúc" />
             </Form.Item>
           </Form.Item>
         </Form>

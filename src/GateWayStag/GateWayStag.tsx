@@ -27,7 +27,7 @@ import Trigger from "./Trigger/Trigger";
 import { Image } from "antd";
 import "./GateWayStag.css";
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 type MenuItem = Required<MenuProps>["items"][number];
 const { Header, Sider, Content } = Layout;
 function getItem(
