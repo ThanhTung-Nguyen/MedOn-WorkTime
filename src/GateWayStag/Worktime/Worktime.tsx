@@ -342,20 +342,15 @@ const Worktime = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const [filter, setfilter] = useState<string>("vidcall");
   useEffect(() => {
-    let a = arrlist.filter((currentValue) => currentValue.loai === filter);
-    console.log(filter);
     if (filter) {
       let a = data.filter((currentValue) => currentValue.loai === filter);
       setArrlist(a);
+      console.log(a);
+      
     } else {
       setArrlist(data);
     }
-    console.log(a);
 
-    // setArrlist( arrlist.filter((currentValue) =>
-    //   currentValue.loai === filter
-
-    // ));
   }, [filter]);
 
   const success = () => {
@@ -514,12 +509,6 @@ const Worktime = () => {
           bordered
           dataSource={
             arrlist
-            // arrlist.filter((element) => {
-            // if (element.loai == "vidcall") {
-            //   return true;
-            // }
-            // return false;
-            // })
           }
           columns={columns}
           onRow={(record: any, index) => {
