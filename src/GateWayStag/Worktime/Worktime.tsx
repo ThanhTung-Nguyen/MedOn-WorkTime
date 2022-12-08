@@ -6,21 +6,19 @@ import {
   EditOutlined,
   DeleteOutlined,
   ExclamationCircleOutlined,
-  ReloadOutlined,
 } from "@ant-design/icons";
 import { Button, Space, Modal, Form, Table, message } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { Tag } from "antd";
 import { Tooltip } from "antd";
 import ArrowTitle from "../ArrowTitle/ArrowTitle";
-import SelectBtnReset from "../SelectBtnSelect/SelectBtnSelect";
+import SelectType from "../SelectType/SelectType";
+import ResetBtn from "../ResetBtn/ResetBtn";
 import dayjs from "dayjs";
 import ModalAdd from "../ModalAdd/ModalAdd";
 import ModalEdit from "../ModalEdit/ModalEdit";
-// import Status from "../Status/Status";
 import "./Worktime.css";
 
-const { Option } = Select;
 const format = "HH:mm";
 //TODO: DaTaType
 export interface DaTaType {
@@ -289,7 +287,7 @@ const Worktime = () => {
     {
       title: "Thao tác",
       dataIndex: "operation",
-      width: "7.5%",
+      width: "7.3%",
       fixed: "right",
       //TODO: Button Thao tác
       render: (value: any, record: any, index: any) => {
@@ -319,13 +317,6 @@ const Worktime = () => {
                 }}
                 icon={<DeleteOutlined />}
               ></Button>
-              {/* <Button
-              onClick={(e) => {
-                console.log("data:", record.ten, record.ca, record.loai, record.start);
-              }}
-            >
-              Log Data
-            </Button> */}
             </Space>
           </div>
         );
@@ -333,24 +324,23 @@ const Worktime = () => {
     },
   ];
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); //State Modal Add
   const [modalDelOpen, setModalDelOpen] = useState(false); //State Modal Delete
   const [arrlist, setArrlist] = useState<DaTaType[]>(data); //State Data Table
   const [modalEditOpen, setModalEditOpen] = useState(false); //State Modal Edit
   const [editrow, setEditrow] = useState<any>(); //State chọn row để Edit
 
-  const [messageApi, contextHolder] = message.useMessage();
-  const [filter, setfilter] = useState<string>("vidcall");
+  const [filter, setfilter] = useState<string>("vidcall"); //State lọc loại khung giờ
+  const [messageApi, contextHolder] = message.useMessage(); //State Message
+
   useEffect(() => {
     if (filter) {
       let a = data.filter((currentValue) => currentValue.loai === filter);
       setArrlist(a);
       console.log(a);
-      
     } else {
       setArrlist(data);
     }
-
   }, [filter]);
 
   const success = () => {
@@ -414,14 +404,12 @@ const Worktime = () => {
       })
     );
     success();
-    // console.log(selectedrow);
   };
   //TODO: Hàm Edit
   const handleEdit = (values: any) => {
     let index = arrlist.indexOf(editrow);
     arrlist[index] = { ...editrow, ...values };
     setArrlist([...arrlist]);
-    // setEditrow(arrlist[index]);
     setModalEditOpen(false);
     success();
   };
@@ -432,6 +420,8 @@ const Worktime = () => {
   });
   const { selectedRowKeys, loading } = select;
   const rowSelection = {
+    selections: true,
+    hideSelectAll: true,
     selectedRowKeys,
     onChange: (selectedRowKeys: any) => {
       setSelect({
@@ -451,39 +441,17 @@ const Worktime = () => {
         </div>
         <div>
           <Space style={{ margin: "15px 0" }}>
-            <p style={{ marginRight: 35 }}>Loại khung giờ:</p>
-            <Select
-              defaultValue={"vidcall"}
-              style={{ width: 260, textAlign: "left" }}
-              options={[
-                {
-                  id: 1,
-                  value: "vidcall",
-                  label: "Video Call",
-                },
-                {
-                  id: 2,
-                  value: "normal",
-                  label: "Lịch thường",
-                },
-              ]}
+            <SelectType
               onChange={(value: any, option) => {
                 setfilter(value);
               }}
             />
-
-            <Button
-              block={false}
-              icon={<ReloadOutlined />}
-              size={"middle"}
-              style={{ borderRadius: 0 }}
+            <ResetBtn
               onClick={() => {
-                setfilter("vidcall");
                 setArrlist(data);
+                setfilter("vidcall");
               }}
-            >
-              Reset
-            </Button>
+            />
           </Space>
         </div>
       </div>
@@ -507,9 +475,7 @@ const Worktime = () => {
         <Table
           rowSelection={rowSelection}
           bordered
-          dataSource={
-            arrlist
-          }
+          dataSource={arrlist}
           columns={columns}
           onRow={(record: any, index) => {
             return {
